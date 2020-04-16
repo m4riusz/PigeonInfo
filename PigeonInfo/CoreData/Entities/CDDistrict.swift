@@ -13,5 +13,23 @@ import CoreData
 public class CDDistrict: NSManagedObject {
     @NSManaged public var id: Int64
     @NSManaged public var name: String
-    @NSManaged public var departments: NSSet
+}
+
+extension CDDistrict: DomainConvertibleType {
+    func asDomain() -> District {
+        return .init(id: id,
+                     name: name)
+    }
+}
+
+extension District: CoreDataRepresentable {
+    
+    static var entityName: String {
+        return NSStringFromClass(CDDistrict.self)
+    }
+    
+    func update(entity: CDDistrict) {
+        entity.id = id
+        entity.name = name
+    }
 }
