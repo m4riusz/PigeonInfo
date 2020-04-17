@@ -26,6 +26,6 @@ final class DepartmentListViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        
+        return .init()
     }
 }

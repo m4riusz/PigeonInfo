@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 
 final class DepartmentListUseCase: DepartmentListUseCaseProtocol {
-    
     private let districtRepository: DistrictRepositoryProtocol
     private let departmentRepository: DepartmentRepositoryProtocol
     
@@ -20,7 +19,7 @@ final class DepartmentListUseCase: DepartmentListUseCaseProtocol {
         self.departmentRepository = departmentRepository
     }
     
-    func departments() -> Observable<[District: [Department]]> {
+    func departments(query: String?) -> Observable<[District: [Department]]> {
         return Observable.combineLatest(districtRepository.query(predicate: nil, sorters: []),
                                         departmentRepository.query(predicate: nil, sorters: []))
             .flatMapLatest { districts, departments -> Observable<[District: [Department]]>  in

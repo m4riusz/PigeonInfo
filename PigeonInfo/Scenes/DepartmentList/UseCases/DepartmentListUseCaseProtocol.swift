@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 protocol DepartmentListUseCaseProtocol {
-    func departments() -> Observable<[District: [Department]]>
+    func departments(query: String?) -> Observable<[District: [Department]]>
 }
