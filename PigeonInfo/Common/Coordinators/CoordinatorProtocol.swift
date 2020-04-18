@@ -6,21 +6,10 @@
 //  Copyright © 2020 Mariusz Sut. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol CoordinatorProtocol: class {
-    var childCoordinators: [CoordinatorProtocol] { get set }
+    var navigationController: UINavigationController { get }
     
     func start()
-}
-
-extension CoordinatorProtocol {
-
-    func store(coordinator: CoordinatorProtocol) {
-        childCoordinators.append(coordinator)
-    }
-
-    func free(coordinator: CoordinatorProtocol) {
-        childCoordinators = childCoordinators.filter { $0 !== coordinator }
-    }
 }

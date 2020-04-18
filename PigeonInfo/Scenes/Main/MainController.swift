@@ -60,6 +60,7 @@ final class MainController: UIViewController {
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
         }
+        bottomBarContainerView.setContentHuggingPriority(.required, for: .vertical)
         bottomBarContainerView.snp.makeConstraints {
             $0.top.equalTo(containerView.snp.bottom)
             $0.left.equalToSuperview()
@@ -87,10 +88,16 @@ final class MainController: UIViewController {
         let output = viewModel.transform(input: .init(departmentListTrigger: departmentListTrigger,
                                                       aboutTrigger: aboutTrigger))
         output.departmentList
-            .drive()
+            .drive(onNext: { [weak self] _ in
+                self?.listButton.isSelected = true
+                self?.aboutButton.isSelected = false
+            })
             .disposed(by: disposeBag)
         output.about
-            .drive()
+            .drive(onNext: { [weak self] _ in
+                self?.listButton.isSelected = false
+                self?.aboutButton.isSelected = true
+            })
             .disposed(by: disposeBag)
     }
 }

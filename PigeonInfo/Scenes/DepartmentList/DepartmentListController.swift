@@ -10,6 +10,9 @@ import UIKit
 import RxSwift
 
 final class DepartmentListController: UIViewController {
-    
-    
+    var viewModel: DepartmentListViewModel!
+ 
+    override func viewDidLoad() {
+        view.backgroundColor = .green
+    }
 }

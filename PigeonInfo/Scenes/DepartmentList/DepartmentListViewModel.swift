@@ -19,7 +19,8 @@ final class DepartmentListViewModel: ViewModelType {
         
     }
     
-    private let useCase: DepartmentListUseCase
+    private let useCase: DepartmentListUseCaseProtocol
+    var coordinator: DepartmentListCoordinatorProtocol!
     
     init(useCase: DepartmentListUseCase) {
         self.useCase = useCase
