@@ -10,7 +10,7 @@ import Foundation
 
 struct District {
     let id: Int64
-    let string: String
+    let name: String
 }
 
 extension District: Hashable {
