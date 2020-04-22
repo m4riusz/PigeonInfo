@@ -60,6 +60,9 @@
 		6FFBE2422450C1EE00CD69E2 /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = 6FFBE2412450C1EE00CD69E2 /* Rswift */; };
 		6FFBE2452450C92C00CD69E2 /* RswiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFBE2442450C92C00CD69E2 /* RswiftExtension.swift */; };
 		6FFBE2472450CAA800CD69E2 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFBE2462450CAA800CD69E2 /* UIView.swift */; };
+		6FFBE24B2450CE9500CD69E2 /* DepartmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFBE24A2450CE9500CD69E2 /* DepartmentTableViewCell.swift */; };
+		6FFBE24D2450CF1200CD69E2 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFBE24C2450CF1200CD69E2 /* Label.swift */; };
+		6FFBE24F2450D00E00CD69E2 /* TextSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFBE24E2450D00E00CD69E2 /* TextSize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +134,9 @@
 		6FFBE23E2450C1BC00CD69E2 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		6FFBE2442450C92C00CD69E2 /* RswiftExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RswiftExtension.swift; sourceTree = "<group>"; };
 		6FFBE2462450CAA800CD69E2 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		6FFBE24A2450CE9500CD69E2 /* DepartmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartmentTableViewCell.swift; sourceTree = "<group>"; };
+		6FFBE24C2450CF1200CD69E2 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		6FFBE24E2450D00E00CD69E2 /* TextSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSize.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,7 +242,7 @@
 				6FFBE2432450C91800CD69E2 /* Extensions */,
 				6FFBE23D2450C19900CD69E2 /* Generated */,
 				6F5C11E5244A321B0045F2AC /* BaseView */,
-				6F5C11E2244A311F0045F2AC /* ImageButton */,
+				6F5C11E2244A311F0045F2AC /* Components */,
 				6F5C11DB244A2E5C0045F2AC /* Coordinators */,
 				6F5C11BE244A272C0045F2AC /* DataSources */,
 				6F5AA4DC2448E14200A93215 /* Utils */,
@@ -281,6 +287,7 @@
 				6F5AA4D72448E0C200A93215 /* DepartmentListController.swift */,
 				6F5AA4D92448E0EA00A93215 /* DepartmentListViewModel.swift */,
 				6F302A37244AF9E00046F399 /* DepartmentListCoordinator.swift */,
+				6FFBE24A2450CE9500CD69E2 /* DepartmentTableViewCell.swift */,
 			);
 			path = DepartmentList;
 			sourceTree = "<group>";
@@ -382,12 +389,14 @@
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
-		6F5C11E2244A311F0045F2AC /* ImageButton */ = {
+		6F5C11E2244A311F0045F2AC /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				6F5C11E3244A31470045F2AC /* ImageButton.swift */,
+				6FFBE24C2450CF1200CD69E2 /* Label.swift */,
+				6FFBE24E2450D00E00CD69E2 /* TextSize.swift */,
 			);
-			path = ImageButton;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		6F5C11E5244A321B0045F2AC /* BaseView */ = {
@@ -602,6 +611,7 @@
 				6F5AA4D82448E0C200A93215 /* DepartmentListController.swift in Sources */,
 				6F5C11D7244A2D6F0045F2AC /* DepartmentLocalDataSource.swift in Sources */,
 				6F57167F24478EBA0076C88C /* CDDepartment.swift in Sources */,
+				6FFBE24F2450D00E00CD69E2 /* TextSize.swift in Sources */,
 				6FFBE23F2450C1BC00CD69E2 /* R.generated.swift in Sources */,
 				6F5AA4E32448E35700A93215 /* DepartmentRepositoryProtocol.swift in Sources */,
 				6FFBE2472450CAA800CD69E2 /* UIView.swift in Sources */,
@@ -610,6 +620,7 @@
 				6F302A40244B02220046F399 /* NavigationController.swift in Sources */,
 				6F5C11E4244A31470045F2AC /* ImageButton.swift in Sources */,
 				6F21AC99244629A300E419D7 /* Model_v1.xcdatamodeld in Sources */,
+				6FFBE24B2450CE9500CD69E2 /* DepartmentTableViewCell.swift in Sources */,
 				6F302A38244AF9E00046F399 /* DepartmentListCoordinator.swift in Sources */,
 				6F5AA4D32448D85300A93215 /* CoreDataRepresentable.swift in Sources */,
 				6F302A3E244AFC130046F399 /* AboutCoordinator.swift in Sources */,
@@ -619,6 +630,7 @@
 				6F5C11CF244A2B470045F2AC /* DistrictReporitory.swift in Sources */,
 				6F5AA4DE2448E15000A93215 /* ViewModelType.swift in Sources */,
 				6F21AC8F244629A300E419D7 /* AppDelegate.swift in Sources */,
+				6FFBE24D2450CF1200CD69E2 /* Label.swift in Sources */,
 				6F5C11D5244A2D6F0045F2AC /* DistrictRemoteDataSource.swift in Sources */,
 				6F57168124478EBA0076C88C /* CDDistrict.swift in Sources */,
 				6F5716852447926E0076C88C /* District.swift in Sources */,
