@@ -66,7 +66,7 @@ final class ImageButton: BaseView {
     }
     
     private func updateForState() {
-        imageView.image = isSelected ? selectedImage : normalImage
+        imageView.image = isSelected ? selectedImage ?? normalImage : normalImage
         imageView.tintColor = isSelected ? selectedColor : normalColor
         titleLabel.textColor = isSelected ? selectedColor : normalColor
     }
