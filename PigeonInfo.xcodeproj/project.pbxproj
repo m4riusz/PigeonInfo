@@ -56,6 +56,8 @@
 		6F5C11E9244A33E60045F2AC /* Spacings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C11E8244A33E60045F2AC /* Spacings.swift */; };
 		6F5C11EB244A3B2D0045F2AC /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C11EA244A3B2D0045F2AC /* MainViewModel.swift */; };
 		6F5C11ED244A3B960045F2AC /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C11EC244A3B960045F2AC /* MainCoordinator.swift */; };
+		6FFBE23F2450C1BC00CD69E2 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFBE23E2450C1BC00CD69E2 /* R.generated.swift */; };
+		6FFBE2422450C1EE00CD69E2 /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = 6FFBE2412450C1EE00CD69E2 /* Rswift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +126,7 @@
 		6F5C11E8244A33E60045F2AC /* Spacings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacings.swift; sourceTree = "<group>"; };
 		6F5C11EA244A3B2D0045F2AC /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		6F5C11EC244A3B960045F2AC /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		6FFBE23E2450C1BC00CD69E2 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +140,7 @@
 				6F57168B244794A30076C88C /* Then in Frameworks */,
 				6F21ACDA24462DDA00E419D7 /* Differentiator in Frameworks */,
 				6F21ACD724462DB500E419D7 /* SnapKit in Frameworks */,
+				6FFBE2422450C1EE00CD69E2 /* Rswift in Frameworks */,
 				6F06E6F72446356A0031BF2F /* RxSwift in Frameworks */,
 				6F21ACC324462CFD00E419D7 /* Moya in Frameworks */,
 			);
@@ -225,6 +229,7 @@
 		6F57167524478C0D0076C88C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				6FFBE23D2450C19900CD69E2 /* Generated */,
 				6F5C11E5244A321B0045F2AC /* BaseView */,
 				6F5C11E2244A311F0045F2AC /* ImageButton */,
 				6F5C11DB244A2E5C0045F2AC /* Coordinators */,
@@ -388,6 +393,14 @@
 			path = BaseView;
 			sourceTree = "<group>";
 		};
+		6FFBE23D2450C19900CD69E2 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				6FFBE23E2450C1BC00CD69E2 /* R.generated.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -395,6 +408,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F21ACB8244629A500E419D7 /* Build configuration list for PBXNativeTarget "PigeonInfo" */;
 			buildPhases = (
+				6FFBE23C2450BF3000CD69E2 /* Run script (Generate R.generated.swift) */,
 				6F21AC87244629A300E419D7 /* Sources */,
 				6F21AC88244629A300E419D7 /* Frameworks */,
 				6F21AC89244629A300E419D7 /* Resources */,
@@ -413,6 +427,7 @@
 				6F21ACDB24462DDA00E419D7 /* RxDataSources */,
 				6F06E6F62446356A0031BF2F /* RxSwift */,
 				6F57168A244794A30076C88C /* Then */,
+				6FFBE2412450C1EE00CD69E2 /* Rswift */,
 			);
 			productName = PigeonInfo;
 			productReference = 6F21AC8B244629A300E419D7 /* PigeonInfo.app */;
@@ -494,6 +509,7 @@
 				6F21ACD824462DDA00E419D7 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				6F06E6F52446356A0031BF2F /* XCRemoteSwiftPackageReference "RxSwift" */,
 				6F571689244794A30076C88C /* XCRemoteSwiftPackageReference "Then" */,
+				6FFBE2402450C1EE00CD69E2 /* XCRemoteSwiftPackageReference "R.swift" */,
 			);
 			productRefGroup = 6F21AC8C244629A300E419D7 /* Products */;
 			projectDirPath = "";
@@ -533,6 +549,29 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6FFBE23C2450BF3000CD69E2 /* Run script (Generate R.generated.swift) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			name = "Run script (Generate R.generated.swift)";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/PigeonInfo/Common/Generated/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncd BuildTools\nSDKROOT=macosx\nswift run -c release rswift generate \"$SRCROOT/PigeonInfo/Common/Generated/R.generated.swift\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6F21AC87244629A300E419D7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -548,6 +587,7 @@
 				6F5AA4D82448E0C200A93215 /* DepartmentListController.swift in Sources */,
 				6F5C11D7244A2D6F0045F2AC /* DepartmentLocalDataSource.swift in Sources */,
 				6F57167F24478EBA0076C88C /* CDDepartment.swift in Sources */,
+				6FFBE23F2450C1BC00CD69E2 /* R.generated.swift in Sources */,
 				6F5AA4E32448E35700A93215 /* DepartmentRepositoryProtocol.swift in Sources */,
 				6F5AA4D12448D81700A93215 /* DomainConvertibleType.swift in Sources */,
 				6F5C11CD244A2A700045F2AC /* DepartmentRepository.swift in Sources */,
@@ -953,6 +993,14 @@
 				minimumVersion = 2.6.0;
 			};
 		};
+		6FFBE2402450C1EE00CD69E2 /* XCRemoteSwiftPackageReference "R.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift.Library";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -995,6 +1043,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6F571689244794A30076C88C /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		6FFBE2412450C1EE00CD69E2 /* Rswift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FFBE2402450C1EE00CD69E2 /* XCRemoteSwiftPackageReference "R.swift" */;
+			productName = Rswift;
 		};
 /* End XCSwiftPackageProductDependency section */
 
