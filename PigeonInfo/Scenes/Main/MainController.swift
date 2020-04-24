@@ -36,7 +36,7 @@ final class MainController: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = R.color.background()
-        setupLayout()
+        setupConstraints()
         bindViewModel()
     }
     
@@ -50,7 +50,7 @@ final class MainController: UIViewController {
         controller.didMove(toParent: self)
     }
     
-    private func setupLayout() {
+    private func setupConstraints() {
         view.addSubview(containerView)
         view.addSubview(bottomBarContainerView)
         bottomBarContainerView.addSubview(listButton)

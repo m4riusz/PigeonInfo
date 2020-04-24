@@ -12,6 +12,6 @@ enum TextSize: CGFloat {
     case tiny = 8
     case small = 10
     case normal = 12
-    case big = 16
-    case huge = 18
+    case big = 14
+    case huge = 16
 }
