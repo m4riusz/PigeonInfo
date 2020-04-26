@@ -48,7 +48,7 @@ final class DepartmentCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func update(_ item: Department) {
+    func update(_ item: DepartmentViewModel) {
         numberLabel.text = item.number
         nameLabel.text = item.name
     }

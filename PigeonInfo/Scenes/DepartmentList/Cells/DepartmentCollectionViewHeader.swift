@@ -35,7 +35,7 @@ final class DepartmentCollectionViewHeader: UICollectionReusableView {
         }
     }
     
-    func update(_ item: District) {
+    func update(_ item: DepartmentSection) {
         nameLabel.text = item.name
     }
 }
