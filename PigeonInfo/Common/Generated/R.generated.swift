@@ -214,8 +214,16 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 3 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 6 localization keys.
     struct localizable {
+      /// en translation: Cancel
+      ///
+      /// Locales: en, pl
+      static let cancel = Rswift.StringResource(key: "cancel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "pl"], comment: nil)
+      /// en translation: Departments
+      ///
+      /// Locales: en, pl
+      static let departments = Rswift.StringResource(key: "departments", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "pl"], comment: nil)
       /// en translation: Info
       ///
       /// Locales: en, pl
@@ -228,6 +236,40 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, pl
       static let pigeon = Rswift.StringResource(key: "pigeon", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "pl"], comment: nil)
+      /// en translation: Search
+      ///
+      /// Locales: en, pl
+      static let search = Rswift.StringResource(key: "search", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "pl"], comment: nil)
+
+      /// en translation: Cancel
+      ///
+      /// Locales: en, pl
+      static func cancel(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cancel", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "cancel"
+        }
+
+        return NSLocalizedString("cancel", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Departments
+      ///
+      /// Locales: en, pl
+      static func departments(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("departments", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "departments"
+        }
+
+        return NSLocalizedString("departments", bundle: bundle, comment: "")
+      }
 
       /// en translation: Info
       ///
@@ -272,6 +314,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("pigeon", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Search
+      ///
+      /// Locales: en, pl
+      static func search(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("search", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "search"
+        }
+
+        return NSLocalizedString("search", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

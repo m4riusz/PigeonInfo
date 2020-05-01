@@ -11,7 +11,7 @@ import CoreGraphics
 enum TextSize: CGFloat {
     case tiny = 8
     case small = 10
-    case normal = 12
-    case big = 14
-    case huge = 16
+    case normal = 14
+    case big = 18
+    case huge = 24
 }
