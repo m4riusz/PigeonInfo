@@ -41,9 +41,9 @@ final class MainController: UIViewController {
     }
     
     func setChild(controller: UIViewController) {
-        self.children.forEach { $0.removeFromParent() }
+        children.forEach { $0.removeFromParent() }
         controller.willMove(toParent: self)
-        self.containerView.addSubview(controller.view)
+        containerView.addSubview(controller.view)
         controller.view.snp.remakeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -70,14 +70,14 @@ final class MainController: UIViewController {
         }
         listButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(Spacings.normal)
-            $0.left.equalToSuperview().offset(Spacings.normal)
-            $0.bottom.equalToSuperview().offset(-Spacings.normal)
+            $0.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(Spacings.normal)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-Spacings.small)
         }
         aboutButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(Spacings.normal)
             $0.left.equalTo(listButton.snp.right).offset(Spacings.normal)
-            $0.right.equalToSuperview().offset(-Spacings.normal)
-            $0.bottom.equalToSuperview().offset(-Spacings.normal)
+            $0.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-Spacings.normal)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-Spacings.small)
             $0.size.equalTo(listButton.snp.size)
         }
     }

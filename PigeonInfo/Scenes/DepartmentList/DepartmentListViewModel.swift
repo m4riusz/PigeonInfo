@@ -15,6 +15,7 @@ final class DepartmentListViewModel: ViewModelType {
     
     struct Input {
         let loadTrigger: Driver<Void>
+        let query: Driver<String>
     }
     
     struct Output {

@@ -11,6 +11,6 @@ import UIKit
 final class NavigationController: UINavigationController {
     
     override func viewDidLoad() {
-        self.isNavigationBarHidden = true
+        isNavigationBarHidden = true
     }
 }

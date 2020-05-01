@@ -11,6 +11,11 @@ import RxSwift
 import RxDataSources
 
 final class DepartmentListController: UIViewController {
+    private lazy var searchNavigationView = SearchNavigationView().then {
+        $0.title = R.string.localizable.departments()
+        $0.roundedBottomCorners()
+        $0.addShadow()
+    }
     private lazy var flowLayout = UICollectionViewFlowLayout().then {
         $0.itemSize = CGSize(width: view.frame.width,
                              height: 40)
@@ -32,19 +37,29 @@ final class DepartmentListController: UIViewController {
     }
     
     private func setupConstraints() {
+        view.addSubview(searchNavigationView)
         view.addSubview(collectionView)
-        
+        searchNavigationView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview()
+        }
         collectionView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(searchNavigationView.snp.bottom)
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
     
     private func bindViewModel() {
-        let loadTrigger = self.rx.methodInvoked(#selector(viewDidLoad))
+        let loadTrigger = rx.methodInvoked(#selector(viewDidLoad))
             .mapToVoid()
             .asDriverOnErrorJustComplete()
+        let query = searchNavigationView.query
         
-        let output = viewModel.transform(input: .init(loadTrigger: loadTrigger))
+        let output = viewModel.transform(input: .init(loadTrigger: loadTrigger,
+                                                      query: query))
         output.items
             .drive(collectionView.rx.items(dataSource:
                 RxCollectionViewSectionedAnimatedDataSource<DepartmentSection>(
