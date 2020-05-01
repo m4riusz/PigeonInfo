@@ -26,32 +26,3 @@ protocol ReusableRegister {
     func dequeueCell<T: ReusableElement>(_ cell: T.Type,
                                          indexPath: IndexPath) -> T
 }
-
-extension UICollectionReusableView: ReusableElement {
-}
-
-extension UICollectionView: ReusableRegister {
-    
-    func registerHeader<T>(_ header: T.Type) where T : ReusableElement {
-        register(T.self,
-                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                 withReuseIdentifier: T.reusableIdentifier())
-    }
-    
-    func registerCell<T>(_ cell: T.Type) where T : ReusableElement {
-        register(T.self, forCellWithReuseIdentifier: T.reusableIdentifier())
-    }
-    
-    func dequeueHeader<T>(_ header: T.Type,
-                          indexPath: IndexPath) -> T where T : ReusableElement {
-        return dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
-                                                withReuseIdentifier: T.reusableIdentifier(),
-                                                for: indexPath) as! T
-    }
-  
-    func dequeueCell<T>(_ cell: T.Type,
-                        indexPath: IndexPath) -> T where T : ReusableElement {
-        return dequeueReusableCell(withReuseIdentifier: T.reusableIdentifier(),
-                                       for: indexPath) as! T
-    }
-}

@@ -11,8 +11,13 @@ import RxSwift
 import RxDataSources
 
 final class DepartmentListController: UIViewController {
-    private lazy var collectionView = UICollectionView(frame: .zero,
-                                                       collectionViewLayout: UICollectionViewFlowLayout()).then {
+    private lazy var flowLayout = UICollectionViewFlowLayout().then {
+        $0.itemSize = CGSize(width: view.frame.width,
+                             height: 40)
+        $0.headerReferenceSize = CGSize(width: view.frame.width,
+                                        height: 40)
+    }
+    private lazy var collectionView = UICollectionView(flowLayout).then {
         $0.backgroundColor = .clear
         $0.registerHeader(DepartmentCollectionViewHeader.self)
         $0.registerCell(DepartmentCollectionViewCell.self)
@@ -21,7 +26,7 @@ final class DepartmentListController: UIViewController {
     var viewModel: DepartmentListViewModel!
  
     override func viewDidLoad() {
-        view.backgroundColor = .green
+        view.backgroundColor = R.color.background()
         setupConstraints()
         bindViewModel()
     }
