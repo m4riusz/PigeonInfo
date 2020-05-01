@@ -39,7 +39,6 @@ final class DepartmentListController: UIViewController {
     private func setupConstraints() {
         view.addSubview(searchNavigationView)
         view.addSubview(collectionView)
-        
         searchNavigationView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.equalToSuperview()
@@ -49,6 +48,7 @@ final class DepartmentListController: UIViewController {
             $0.top.equalTo(searchNavigationView.snp.bottom)
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
     
