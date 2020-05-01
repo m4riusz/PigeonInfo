@@ -16,26 +16,27 @@ final class MainController: UIViewController {
     }
     private lazy var bottomBarContainerView = UIView().then {
         $0.backgroundColor = .white
+        $0.roundedTopCorners()
+        $0.addShadow()
     }
     private lazy var listButton = ImageButton().then {
-        $0.normalColor = .systemGray
-        $0.normalImage = UIImage()
-        $0.selectedColor = .systemBlue
-        $0.selectedImage = UIImage()
-        $0.title = "List"
+        $0.normalColor = R.color.secondary_text()
+        $0.normalImage = R.image.list.template()
+        $0.selectedColor = R.color.primary_button()
+        $0.title = R.string.localizable.list()
     }
     private lazy var aboutButton = ImageButton().then {
-        $0.normalColor = .systemGray
-        $0.normalImage = UIImage()
-        $0.selectedColor = .systemBlue
-        $0.selectedImage = UIImage()
-        $0.title = "About"
+        $0.normalColor = R.color.secondary_text()
+        $0.normalImage = R.image.info.template()
+        $0.selectedColor = R.color.primary_button()
+        $0.title = R.string.localizable.info()
     }
     private lazy var disposeBag = DisposeBag()
     var viewModel: MainViewModel!
     
     override func viewDidLoad() {
-        setupLayout()
+        view.backgroundColor = R.color.background()
+        setupConstraints()
         bindViewModel()
     }
     
@@ -49,7 +50,7 @@ final class MainController: UIViewController {
         controller.didMove(toParent: self)
     }
     
-    private func setupLayout() {
+    private func setupConstraints() {
         view.addSubview(containerView)
         view.addSubview(bottomBarContainerView)
         bottomBarContainerView.addSubview(listButton)

@@ -8,15 +8,17 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
+import RxDataSources
 
 final class DepartmentListViewModel: ViewModelType {
     
     struct Input {
-        
+        let loadTrigger: Driver<Void>
     }
     
     struct Output {
-        
+        let items: Driver<[DepartmentSection]>
     }
     
     private let useCase: DepartmentListUseCaseProtocol
@@ -27,6 +29,14 @@ final class DepartmentListViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        return .init()
+        let items = useCase.departments(query: nil)
+            .map { pairs -> [DepartmentSection] in
+                return pairs.map { section in
+                    .init(district: section.key,
+                          departments: section.value.map { .init(department: $0) })
+                }
+        }
+        .asDriverOnErrorJustComplete()
+        return .init(items: items)
     }
 }

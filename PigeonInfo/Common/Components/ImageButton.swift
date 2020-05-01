@@ -16,8 +16,10 @@ final class ImageButton: BaseView {
     private lazy var imageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
-    private lazy var titleLabel = UILabel().then {
+    private lazy var titleLabel = Label().then {
         $0.textAlignment = .center
+        $0.textSize = .normal
+        $0.textWeight = .semibold
     }
     private lazy var tapGesture = UITapGestureRecognizer()
     var title: String? {
@@ -46,10 +48,10 @@ final class ImageButton: BaseView {
     }
     
     override func setup() {
-        self.backgroundColor = .clear
-        self.addGestureRecognizer(tapGesture)
-        self.addSubview(imageView)
-        self.addSubview(titleLabel)
+        backgroundColor = .clear
+        addGestureRecognizer(tapGesture)
+        addSubview(imageView)
+        addSubview(titleLabel)
         
         imageView.snp.makeConstraints {
             $0.top.equalToSuperview()
@@ -66,7 +68,7 @@ final class ImageButton: BaseView {
     }
     
     private func updateForState() {
-        imageView.image = isSelected ? selectedImage : normalImage
+        imageView.image = isSelected ? selectedImage ?? normalImage : normalImage
         imageView.tintColor = isSelected ? selectedColor : normalColor
         titleLabel.textColor = isSelected ? selectedColor : normalColor
     }

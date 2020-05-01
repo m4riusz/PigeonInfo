@@ -35,7 +35,6 @@ final class MainCoordinator: CoordinatorProtocol {
     
     func start() {
         navigationController.viewControllers = [mainController]
-        
         window.rootViewController = navigationController
     }
 }

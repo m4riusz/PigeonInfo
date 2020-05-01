@@ -105,14 +105,159 @@ struct R: Rswift.Validatable {
   }
   #endif
 
+  /// This `R.color` struct is generated, and contains static references to 7 colors.
+  struct color {
+    /// Color `background`.
+    static let background = Rswift.ColorResource(bundle: R.hostingBundle, name: "background")
+    /// Color `navigation_background`.
+    static let navigation_background = Rswift.ColorResource(bundle: R.hostingBundle, name: "navigation_background")
+    /// Color `navigation_title`.
+    static let navigation_title = Rswift.ColorResource(bundle: R.hostingBundle, name: "navigation_title")
+    /// Color `primary_button`.
+    static let primary_button = Rswift.ColorResource(bundle: R.hostingBundle, name: "primary_button")
+    /// Color `primary_text`.
+    static let primary_text = Rswift.ColorResource(bundle: R.hostingBundle, name: "primary_text")
+    /// Color `secondary_button`.
+    static let secondary_button = Rswift.ColorResource(bundle: R.hostingBundle, name: "secondary_button")
+    /// Color `secondary_text`.
+    static let secondary_text = Rswift.ColorResource(bundle: R.hostingBundle, name: "secondary_text")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "background", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.background, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "navigation_background", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func navigation_background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.navigation_background, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "navigation_title", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func navigation_title(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.navigation_title, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "primary_button", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func primary_button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.primary_button, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "primary_text", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func primary_text(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.primary_text, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "secondary_button", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func secondary_button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.secondary_button, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "secondary_text", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func secondary_text(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.secondary_text, compatibleWith: traitCollection)
+    }
+    #endif
+
+    fileprivate init() {}
+  }
+
+  /// This `R.image` struct is generated, and contains static references to 2 images.
+  struct image {
+    /// Image `info`.
+    static let info = Rswift.ImageResource(bundle: R.hostingBundle, name: "info")
+    /// Image `list`.
+    static let list = Rswift.ImageResource(bundle: R.hostingBundle, name: "list")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "info", bundle: ..., traitCollection: ...)`
+    static func info(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.info, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "list", bundle: ..., traitCollection: ...)`
+    static func list(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.list, compatibleWith: traitCollection)
+    }
+    #endif
+
+    fileprivate init() {}
+  }
+
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 1 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 3 localization keys.
     struct localizable {
+      /// en translation: Info
+      ///
+      /// Locales: en, pl
+      static let info = Rswift.StringResource(key: "info", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "pl"], comment: nil)
+      /// en translation: List
+      ///
+      /// Locales: en, pl
+      static let list = Rswift.StringResource(key: "list", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "pl"], comment: nil)
       /// en translation: Pigeon
       ///
       /// Locales: en, pl
       static let pigeon = Rswift.StringResource(key: "pigeon", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "pl"], comment: nil)
+
+      /// en translation: Info
+      ///
+      /// Locales: en, pl
+      static func info(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("info", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "info"
+        }
+
+        return NSLocalizedString("info", bundle: bundle, comment: "")
+      }
+
+      /// en translation: List
+      ///
+      /// Locales: en, pl
+      static func list(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("list", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "list"
+        }
+
+        return NSLocalizedString("list", bundle: bundle, comment: "")
+      }
 
       /// en translation: Pigeon
       ///
