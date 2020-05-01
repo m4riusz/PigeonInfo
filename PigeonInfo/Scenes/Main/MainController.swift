@@ -41,9 +41,9 @@ final class MainController: UIViewController {
     }
     
     func setChild(controller: UIViewController) {
-        self.children.forEach { $0.removeFromParent() }
+        children.forEach { $0.removeFromParent() }
         controller.willMove(toParent: self)
-        self.containerView.addSubview(controller.view)
+        containerView.addSubview(controller.view)
         controller.view.snp.remakeConstraints {
             $0.edges.equalToSuperview()
         }

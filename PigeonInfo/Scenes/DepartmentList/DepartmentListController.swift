@@ -53,11 +53,13 @@ final class DepartmentListController: UIViewController {
     }
     
     private func bindViewModel() {
-        let loadTrigger = self.rx.methodInvoked(#selector(viewDidLoad))
+        let loadTrigger = rx.methodInvoked(#selector(viewDidLoad))
             .mapToVoid()
             .asDriverOnErrorJustComplete()
+        let query = searchNavigationView.query
         
-        let output = viewModel.transform(input: .init(loadTrigger: loadTrigger))
+        let output = viewModel.transform(input: .init(loadTrigger: loadTrigger,
+                                                      query: query))
         output.items
             .drive(collectionView.rx.items(dataSource:
                 RxCollectionViewSectionedAnimatedDataSource<DepartmentSection>(

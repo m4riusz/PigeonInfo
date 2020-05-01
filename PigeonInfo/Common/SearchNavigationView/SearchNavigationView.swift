@@ -46,11 +46,11 @@ final class SearchNavigationView: BaseView {
         backgroundColor = R.color.navigation_background()
         addSubview(navigationView)
         addSubview(searchContainerView)
-        cancelButton.setContentHuggingPriority(.required, for: .horizontal)
-        cancelButton.setContentCompressionResistancePriority(.required, for: .horizontal)
-        
         searchContainerView.addSubview(textField)
         searchContainerView.addSubview(cancelButton)
+
+        cancelButton.setContentHuggingPriority(.required, for: .horizontal)
+        cancelButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         setNormalView(animate: false)
         setupBindings()
     }
