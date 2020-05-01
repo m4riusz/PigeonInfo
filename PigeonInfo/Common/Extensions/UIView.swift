@@ -32,6 +32,12 @@ extension UIView {
                                .layerMaxXMaxYCorner]
     }
     
+    func clearRounds() {
+        clipsToBounds = false
+        layer.cornerRadius = 0
+        layer.maskedCorners = []
+    }
+    
     func addShadow() {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5

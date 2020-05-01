@@ -14,9 +14,11 @@ import RxCocoa
 final class SearchNavigationView: BaseView {
     private lazy var navigationView = NavigationView()
     private lazy var searchContainerView = UIView()
-    private lazy var textField = UITextField().then {
+    private lazy var textField = TextField().then {
         $0.backgroundColor = R.color.background()
         $0.placeholder = R.string.localizable.search()
+        $0.textInsets = .init(top: 2, left: 10, bottom: 2, right: 10)
+        $0.roundCorners = true
     }
     private lazy var cancelButton = Button().then {
         $0.setTitleColor(R.color.navigation_title(), for: .normal)
@@ -27,6 +29,9 @@ final class SearchNavigationView: BaseView {
     private lazy var disposeBag = DisposeBag()
     private lazy var isInSearchMode = false
     
+    var query: Driver<String> {
+        return textField.rx.text.orEmpty.asDriver()
+    }
     var title: String? {
         willSet { navigationView.title = newValue }
     }
@@ -41,6 +46,9 @@ final class SearchNavigationView: BaseView {
         backgroundColor = R.color.navigation_background()
         addSubview(navigationView)
         addSubview(searchContainerView)
+        cancelButton.setContentHuggingPriority(.required, for: .horizontal)
+        cancelButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+        
         searchContainerView.addSubview(textField)
         searchContainerView.addSubview(cancelButton)
         setNormalView(animate: false)
@@ -74,11 +82,15 @@ final class SearchNavigationView: BaseView {
         guard animate else {
             normalStateConstraints.forEach { $0.deactivate() }
             searchStateConstraints.forEach { $0.activate() }
+            navigationView.alpha = 0
+            cancelButton.alpha = 1
             return
         }
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.normalStateConstraints.forEach { $0.deactivate() }
             self?.searchStateConstraints.forEach { $0.activate() }
+            self?.navigationView.alpha = 0
+            self?.cancelButton.alpha = 1
             self?.superview?.layoutIfNeeded()
         }
     }
@@ -87,17 +99,20 @@ final class SearchNavigationView: BaseView {
         textField.endEditing(true)
         textField.text = nil
         guard animate else {
-            normalStateConstraints.forEach { $0.activate() }
             searchStateConstraints.forEach { $0.deactivate() }
+            normalStateConstraints.forEach { $0.activate() }
+            navigationView.alpha = 1
+            cancelButton.alpha = 0
             return
         }
         UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.normalStateConstraints.forEach { $0.activate() }
             self?.searchStateConstraints.forEach { $0.deactivate() }
+            self?.normalStateConstraints.forEach { $0.activate() }
+            self?.navigationView.alpha = 1
+            self?.cancelButton.alpha = 0
             self?.superview?.layoutIfNeeded()
         }
     }
-    
     
     private func getNormalStateConstraints() -> [Constraint] {
         let navigationViewConstraints = navigationView.snp.prepareConstraints {
