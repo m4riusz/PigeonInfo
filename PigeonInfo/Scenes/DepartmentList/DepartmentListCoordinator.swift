@@ -17,8 +17,11 @@ final class DepartmentListCoordinator: CoordinatorProtocol {
                                                     remote: DistrictRemoteDataSource())
         let departmentRepository = DepartmentRepository(local: DepartmentLocalDataSource(),
                                                         remote: DepartmentRemoteDataSource())
+        let versionRepository = VersionRepository(local: VersionLocalDataSource(context: CoreDataStack().persistentContainer.viewContext),
+                                                  remote: VersionRemoteDataSource())
         let useCase = DepartmentListUseCase(districtRepository: districtRepository,
-                                            departmentRepository: departmentRepository)
+                                            departmentRepository: departmentRepository,
+                                            versionRepository: versionRepository)
         $0.viewModel = DepartmentListViewModel(useCase: useCase)
         $0.viewModel.coordinator = self
     }

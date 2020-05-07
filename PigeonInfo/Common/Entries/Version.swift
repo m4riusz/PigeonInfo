@@ -9,8 +9,8 @@
 import Foundation
 
 struct Version {
+    let date: Date
     let id: Int64
-    let districts: [District]
 }
 
 extension Version: Hashable {

@@ -9,9 +9,11 @@
 import Foundation
 
 struct Department {
+    let districtId: Int64
     let id: Int64
     let name: String
     let number: String
+    let versionId: Int64
 }
 
 extension Department: Hashable {

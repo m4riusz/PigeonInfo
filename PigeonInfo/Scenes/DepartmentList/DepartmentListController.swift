@@ -11,10 +11,15 @@ import RxSwift
 import RxDataSources
 
 final class DepartmentListController: UIViewController {
+    private lazy var button = Button().then {
+        $0.setImage(R.image.info(), for: .normal)
+    }
+    
     private lazy var searchNavigationView = SearchNavigationView().then {
         $0.title = R.string.localizable.departments()
         $0.roundedBottomCorners()
         $0.addShadow()
+        $0.righItems = [button]
     }
     private lazy var flowLayout = UICollectionViewFlowLayout().then {
         $0.itemSize = CGSize(width: view.frame.width,
@@ -57,9 +62,11 @@ final class DepartmentListController: UIViewController {
             .mapToVoid()
             .asDriverOnErrorJustComplete()
         let query = searchNavigationView.query
-        
+        let tmpAction = button.rx.tap.asDriver()
         let output = viewModel.transform(input: .init(loadTrigger: loadTrigger,
-                                                      query: query))
+                                                      query: query,
+                                                      tmpAction: tmpAction))
+        
         output.items
             .drive(collectionView.rx.items(dataSource:
                 RxCollectionViewSectionedAnimatedDataSource<DepartmentSection>(
@@ -76,5 +83,9 @@ final class DepartmentListController: UIViewController {
                     return header
                 })))
             .disposed(by: disposeBag)
+        
+        output.tmp
+        .drive()
+        .disposed(by: disposeBag)
     }
 }

@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Department" representedClassName="CDDepartment" syncable="YES">
+    <entity name="CDDepartment" representedClassName=".CDDepartment" syncable="YES">
+        <attribute name="districtId" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="number" attributeType="String"/>
+        <attribute name="versionId" attributeType="Integer 64" usesScalarValueType="YES"/>
     </entity>
-    <entity name="District" representedClassName="CDDistrict" syncable="YES">
+    <entity name="CDDistrict" representedClassName=".CDDistrict" syncable="YES">
         <attribute name="id" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="departments" toMany="YES" deletionRule="Cascade" destinationEntity="Department"/>
+        <attribute name="versionId" attributeType="Integer 64" usesScalarValueType="YES"/>
     </entity>
-    <entity name="Version" representedClassName="Version" syncable="YES">
+    <entity name="CDVersion" representedClassName=".CDVersion" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="Integer 64" usesScalarValueType="YES"/>
-        <relationship name="districts" toMany="YES" deletionRule="Cascade" destinationEntity="District"/>
     </entity>
     <elements>
-        <element name="Department" positionX="-23.98046875" positionY="-76.62890625" width="128" height="88"/>
-        <element name="District" positionX="-48.15625" positionY="-239.53515625" width="128" height="88"/>
-        <element name="Version" positionX="-70.56640625" positionY="-401.05859375" width="128" height="88"/>
+        <element name="CDDepartment" positionX="-23.98046875" positionY="-76.62890625" width="128" height="118"/>
+        <element name="CDDistrict" positionX="-48.15625" positionY="-239.53515625" width="128" height="88"/>
+        <element name="CDVersion" positionX="-70.56640625" positionY="-401.05859375" width="128" height="73"/>
     </elements>
 </model>

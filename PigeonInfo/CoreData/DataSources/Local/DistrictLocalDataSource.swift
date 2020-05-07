@@ -17,7 +17,6 @@ final class DistrictLocalDataSource: DistrictDataSourceProtocol {
     
     func query(predicate: NSPredicate?,
                sorters: [NSSortDescriptor]?) -> Observable<[District]> {
-        return .just([.init(id: 1, name: "BIAŁA PODLASKA"),
-                      .init(id: 2, name: "BIAŁYSTOK")])
+        return Observable.just([])
     }
 }

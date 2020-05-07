@@ -19,11 +19,15 @@ final class VersionRepository: VersionRepositoryProtocol {
         self.remote = remote
     }
     
+    func save(_ version: Version) -> Observable<Void> {
+        return local.save(version)
+    }
+    
     func refresh() -> Observable<Void> {
         fatalError()
     }
     
-    func getLatest() -> Observable<Version> {
-        fatalError()
+    func getLatest() -> Observable<Version?> {
+        return local.getLatest()
     }
 }

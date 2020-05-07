@@ -9,36 +9,25 @@
 import Foundation
 import CoreData
 
-class CDVersion: NSManagedObject {
-    @NSManaged var id: Int64
-    @NSManaged var date: Date
-    @NSManaged var districts: NSSet
-}
-
-extension CDVersion {
-    static func getDistricts(versionId: Int64) -> NSFetchRequest<CDDistrict> {
-        let request = CDDistrict.fetchRequest() as! NSFetchRequest<CDDistrict>
-        request.predicate = NSPredicate(format: "id == %@", versionId)
-        return request
-    }
+public class CDVersion: NSManagedObject {
+    @NSManaged public var id: Int64
+    @NSManaged public var date: Date
 }
 
 extension CDVersion: DomainConvertibleType {
     func asDomain() -> Version {
-        return .init(id: id,
-                     districts: <#T##[District]#>))
+        return .init(date: date,
+                     id: id)
     }
 }
 
-extension Department: CoreDataRepresentable {
+extension Version: CoreDataRepresentable {
     static var entityName: String {
-        return NSStringFromClass(CDDepartment.self)
+        return "CDVersion"
     }
     
-    func update(entity: CDDepartment) {
+    func update(entity: CDVersion) {
         entity.id = id
-        entity.districtId = districtId
-        entity.name = name
-        entity.number = number
+        entity.date = date
     }
 }

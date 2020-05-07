@@ -15,11 +15,13 @@ final class DepartmentListViewModel: ViewModelType {
     
     struct Input {
         let loadTrigger: Driver<Void>
-        let query: Driver<String>
+        let query: Driver<String?>
+        let tmpAction: Driver<Void>
     }
     
     struct Output {
         let items: Driver<[DepartmentSection]>
+        let tmp: Driver<Void>
     }
     
     private let useCase: DepartmentListUseCaseProtocol
@@ -30,7 +32,19 @@ final class DepartmentListViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let items = useCase.departments(query: nil)
+        let departments = useCase.departments()
+        let text = input.query.asObservable()
+        let filteredItems = Observable.combineLatest(text, departments)
+            .flatMapLatest { result -> Observable<[District: [Department]]> in
+                let pairs = result.1
+                guard let query = result.0, !query.isEmpty else {
+                    return .just(pairs)
+                }
+                return .just(pairs
+                    .compactMapValues { $0.searchText(query) }
+                    .filter { !$0.value.isEmpty }
+                )
+        }
             .map { pairs -> [DepartmentSection] in
                 return pairs.map { section in
                     .init(district: section.key,
@@ -38,6 +52,14 @@ final class DepartmentListViewModel: ViewModelType {
                 }
         }
         .asDriverOnErrorJustComplete()
-        return .init(items: items)
+        let tmp = input.tmpAction
+            .asObservable()
+            .flatMapLatest { _ -> Observable<Void> in
+                return self.useCase.mock()
+        }
+        .asDriverOnErrorJustComplete()
+        
+        return .init(items: filteredItems,
+                     tmp: tmp)
     }
 }

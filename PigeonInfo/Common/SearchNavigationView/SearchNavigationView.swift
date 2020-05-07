@@ -29,8 +29,8 @@ final class SearchNavigationView: BaseView {
     private lazy var disposeBag = DisposeBag()
     private lazy var isInSearchMode = false
     
-    var query: Driver<String> {
-        return textField.rx.text.orEmpty.asDriver()
+    var query: Driver<String?> {
+        return textField.rx.text.asDriver()
     }
     var title: String? {
         willSet { navigationView.title = newValue }
