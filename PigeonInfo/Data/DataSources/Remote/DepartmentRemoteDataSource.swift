@@ -8,8 +8,14 @@
 
 import Foundation
 import RxSwift
+import Moya
 
 final class DepartmentRemoteDataSource: DepartmentDataSourceProtocol {
+    private let moyaProvider: MoyaProvider<PigeonInfo>
+    
+    init(moyaProvider: MoyaProvider<PigeonInfo>) {
+        self.moyaProvider = moyaProvider
+    }
     
     func save(_ departments: [Department]) -> Observable<Void> {
         fatalError()

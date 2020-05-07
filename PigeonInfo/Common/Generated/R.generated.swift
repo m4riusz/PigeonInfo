@@ -188,6 +188,44 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
+  /// This `R.file` struct is generated, and contains static references to 4 files.
+  struct file {
+    /// Resource file `v1_departments.json`.
+    static let v1_departmentsJson = Rswift.FileResource(bundle: R.hostingBundle, name: "v1_departments", pathExtension: "json")
+    /// Resource file `v1_districts.json`.
+    static let v1_districtsJson = Rswift.FileResource(bundle: R.hostingBundle, name: "v1_districts", pathExtension: "json")
+    /// Resource file `v1_versions.json`.
+    static let v1_versionsJson = Rswift.FileResource(bundle: R.hostingBundle, name: "v1_versions", pathExtension: "json")
+    /// Resource file `v1_versions_latest.json`.
+    static let v1_versions_latestJson = Rswift.FileResource(bundle: R.hostingBundle, name: "v1_versions_latest", pathExtension: "json")
+
+    /// `bundle.url(forResource: "v1_departments", withExtension: "json")`
+    static func v1_departmentsJson(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.v1_departmentsJson
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "v1_districts", withExtension: "json")`
+    static func v1_districtsJson(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.v1_districtsJson
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "v1_versions", withExtension: "json")`
+    static func v1_versionsJson(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.v1_versionsJson
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "v1_versions_latest", withExtension: "json")`
+    static func v1_versions_latestJson(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.v1_versions_latestJson
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    fileprivate init() {}
+  }
+
   /// This `R.image` struct is generated, and contains static references to 2 images.
   struct image {
     /// Image `info`.

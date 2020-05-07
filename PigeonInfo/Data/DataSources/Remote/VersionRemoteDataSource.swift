@@ -8,8 +8,16 @@
 
 import Foundation
 import RxSwift
+import Moya
+import RxMoya
 
 final class VersionRemoteDataSource: VersionDataSourceProtocol {
+    private let moyaProvider: MoyaProvider<PigeonInfo>
+    
+    init(moyaProvider: MoyaProvider<PigeonInfo>) {
+        self.moyaProvider = moyaProvider
+    }
+    
     func save(_ version: Version) -> Observable<Void> {
         fatalError()
     }

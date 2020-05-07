@@ -1,5 +1,5 @@
 //
-//  DistrictLocalDataSource.swift
+//  DistrictRemoteDataSource.swift
 //  PigeonInfo
 //
 //  Created by Mariusz Sut on 17/04/2020.
@@ -8,8 +8,14 @@
 
 import Foundation
 import RxSwift
+import Moya
 
-final class DistrictLocalDataSource: DistrictDataSourceProtocol {
+final class DistrictRemoteDataSource: DistrictDataSourceProtocol {
+    private let moyaProvider: MoyaProvider<PigeonInfo>
+    
+    init(moyaProvider: MoyaProvider<PigeonInfo>) {
+        self.moyaProvider = moyaProvider
+    }
     
     func save(_ departments: [District]) -> Observable<Void> {
         fatalError()
@@ -17,6 +23,6 @@ final class DistrictLocalDataSource: DistrictDataSourceProtocol {
     
     func query(predicate: NSPredicate?,
                sorters: [NSSortDescriptor]?) -> Observable<[District]> {
-        return Observable.just([])
+        fatalError()
     }
 }

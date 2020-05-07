@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "name": "BIAŁA PODLASKA",
+        "number": "07"
+    },
+    {
+        "id": 2,
+        "name": "PARCZEW",
+        "number": "08"
+    },
+    {
+        "id": 3,
+        "name": "RADZYŃ PODLASKI",
+        "number": "09"
+    },
+    {
+        "id": 4,
+        "name": "SOKOŁOWSKO- WĘGROWSKI",
+        "number": "010"
+    },
+    {
+        "id": 5,
+        "name": "ŁOSICE",
+        "number": "0385"
+    },
+    {
+        "id": 6,
+        "name": "MIĘDZYRZEC PODLASKI",
+        "number": "0391"
+    },
+    {
+        "id": 7,
+        "name": "SIEDLCE",
+        "number": "0414"
+    },
+    {
+        "id": 8,
+        "name": "PODLASIE",
+        "number": "0441"
+    },
+    {
+        "id": 9,
+        "name": "Ł-S-K WSCHÓD",
+        "number": "0468"
+    }
+]

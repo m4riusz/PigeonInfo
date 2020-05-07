@@ -7,18 +7,21 @@
 //
 
 import UIKit
+import Moya
 
 protocol DepartmentListCoordinatorProtocol {
 }
 
 final class DepartmentListCoordinator: CoordinatorProtocol {
     private lazy var departmentListController = DepartmentListController().then {
-        let districtRepository = DistrictRepository(local: DistrictLocalDataSource(),
-                                                    remote: DistrictRemoteDataSource())
-        let departmentRepository = DepartmentRepository(local: DepartmentLocalDataSource(),
-                                                        remote: DepartmentRemoteDataSource())
-        let versionRepository = VersionRepository(local: VersionLocalDataSource(context: CoreDataStack().persistentContainer.viewContext),
-                                                  remote: VersionRemoteDataSource())
+        let moyaProvider: MoyaProvider<PigeonInfo> = .init(stubClosure: MoyaProvider<PigeonInfo>.delayedStub(1))
+        let context = CoreDataStack().persistentContainer.viewContext
+        let districtRepository = DistrictRepository(local: DistrictLocalDataSource(context: context),
+                                                    remote: DistrictRemoteDataSource(moyaProvider: moyaProvider))
+        let departmentRepository = DepartmentRepository(local: DepartmentLocalDataSource(context: context),
+                                                        remote: DepartmentRemoteDataSource(moyaProvider: moyaProvider))
+        let versionRepository = VersionRepository(local: VersionLocalDataSource(context: context),
+                                                  remote: VersionRemoteDataSource(moyaProvider: moyaProvider))
         let useCase = DepartmentListUseCase(districtRepository: districtRepository,
                                             departmentRepository: departmentRepository,
                                             versionRepository: versionRepository)

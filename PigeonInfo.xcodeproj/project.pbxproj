@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		6F06E6F72446356A0031BF2F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6F06E6F62446356A0031BF2F /* RxSwift */; };
+		6F0E9E89246490220018B2A3 /* PigeonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0E9E88246490220018B2A3 /* PigeonInfo.swift */; };
+		6F0E9E8C246491D50018B2A3 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0E9E8B246491D50018B2A3 /* AppDefaults.swift */; };
+		6F0E9E91246494560018B2A3 /* v1_versions.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F0E9E90246494560018B2A3 /* v1_versions.json */; };
+		6F0E9E93246495230018B2A3 /* v1_versions_latest.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F0E9E92246495230018B2A3 /* v1_versions_latest.json */; };
+		6F0E9E97246495E80018B2A3 /* v1_districts.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F0E9E96246495E80018B2A3 /* v1_districts.json */; };
+		6F0E9E992464962B0018B2A3 /* v1_departments.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F0E9E982464962B0018B2A3 /* v1_departments.json */; };
 		6F21AC8F244629A300E419D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21AC8E244629A300E419D7 /* AppDelegate.swift */; };
 		6F21AC99244629A300E419D7 /* Model_v1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6F21AC97244629A300E419D7 /* Model_v1.xcdatamodeld */; };
 		6F21AC9B244629A400E419D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F21AC9A244629A400E419D7 /* Assets.xcassets */; };
@@ -106,6 +112,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6F0E9E88246490220018B2A3 /* PigeonInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PigeonInfo.swift; sourceTree = "<group>"; };
+		6F0E9E8B246491D50018B2A3 /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
+		6F0E9E90246494560018B2A3 /* v1_versions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = v1_versions.json; sourceTree = "<group>"; };
+		6F0E9E92246495230018B2A3 /* v1_versions_latest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = v1_versions_latest.json; sourceTree = "<group>"; };
+		6F0E9E96246495E80018B2A3 /* v1_districts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = v1_districts.json; sourceTree = "<group>"; };
+		6F0E9E982464962B0018B2A3 /* v1_departments.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = v1_departments.json; sourceTree = "<group>"; };
 		6F21AC8B244629A300E419D7 /* PigeonInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PigeonInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F21AC8E244629A300E419D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F21AC98244629A300E419D7 /* PigeonInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PigeonInfo.xcdatamodel; sourceTree = "<group>"; };
@@ -219,6 +231,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F0E9E8E2464941D0018B2A3 /* v1 */ = {
+			isa = PBXGroup;
+			children = (
+				6F0E9E8F246494350018B2A3 /* Sample */,
+				6F21AC97244629A300E419D7 /* Model_v1.xcdatamodeld */,
+			);
+			path = v1;
+			sourceTree = "<group>";
+		};
+		6F0E9E8F246494350018B2A3 /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				6F0E9E90246494560018B2A3 /* v1_versions.json */,
+				6F0E9E92246495230018B2A3 /* v1_versions_latest.json */,
+				6F0E9E96246495E80018B2A3 /* v1_districts.json */,
+				6F0E9E982464962B0018B2A3 /* v1_departments.json */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
 		6F21AC82244629A300E419D7 = {
 			isa = PBXGroup;
 			children = (
@@ -242,7 +274,7 @@
 		6F21AC8D244629A300E419D7 /* PigeonInfo */ = {
 			isa = PBXGroup;
 			children = (
-				6F571683244792380076C88C /* CoreData */,
+				6F571683244792380076C88C /* Data */,
 				6F57167824478C360076C88C /* Scenes */,
 				6F57167724478C290076C88C /* Application */,
 				6F57167524478C0D0076C88C /* Common */,
@@ -315,6 +347,7 @@
 				6F57168E24479B830076C88C /* Entries */,
 				6F5C11E8244A33E60045F2AC /* Spacings.swift */,
 				6F302A3F244B02220046F399 /* NavigationController.swift */,
+				6F0E9E8B246491D50018B2A3 /* AppDefaults.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -322,7 +355,7 @@
 		6F57167624478C1E0076C88C /* Schemes */ = {
 			isa = PBXGroup;
 			children = (
-				6F21AC97244629A300E419D7 /* Model_v1.xcdatamodeld */,
+				6F0E9E8E2464941D0018B2A3 /* v1 */,
 			);
 			path = Schemes;
 			sourceTree = "<group>";
@@ -368,7 +401,7 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		6F571683244792380076C88C /* CoreData */ = {
+		6F571683244792380076C88C /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				6FA12B77245C9FDE0013B078 /* Extensions */,
@@ -378,8 +411,9 @@
 				6F5716862447933A0076C88C /* CoreDataStack.swift */,
 				6F5AA4D02448D81700A93215 /* DomainConvertibleType.swift */,
 				6F5AA4D22448D85300A93215 /* CoreDataRepresentable.swift */,
+				6F0E9E88246490220018B2A3 /* PigeonInfo.swift */,
 			);
-			path = CoreData;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		6F571688244793CA0076C88C /* Entities */ = {
@@ -676,9 +710,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F0E9E97246495E80018B2A3 /* v1_districts.json in Resources */,
 				6F21ACEF2446324D00E419D7 /* LaunchScreen.storyboard in Resources */,
+				6F0E9E93246495230018B2A3 /* v1_versions_latest.json in Resources */,
 				6F21ACE9244631CA00E419D7 /* Localizable.strings in Resources */,
+				6F0E9E992464962B0018B2A3 /* v1_departments.json in Resources */,
 				6F21AC9B244629A400E419D7 /* Assets.xcassets in Resources */,
+				6F0E9E91246494560018B2A3 /* v1_versions.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,6 +781,7 @@
 				6F318C5C245C41A700927480 /* Button.swift in Sources */,
 				6FA12B69245C7A870013B078 /* Version.swift in Sources */,
 				6F57167F24478EBA0076C88C /* CDDepartment.swift in Sources */,
+				6F0E9E8C246491D50018B2A3 /* AppDefaults.swift in Sources */,
 				6FFBE24F2450D00E00CD69E2 /* TextSize.swift in Sources */,
 				6FFBE23F2450C1BC00CD69E2 /* R.generated.swift in Sources */,
 				6F5AA4E32448E35700A93215 /* DepartmentRepositoryProtocol.swift in Sources */,
@@ -751,6 +790,7 @@
 				6F5C11CD244A2A700045F2AC /* DepartmentRepository.swift in Sources */,
 				6FD9E03A245368D900EA2C32 /* DepartmentSection.swift in Sources */,
 				6F302A40244B02220046F399 /* NavigationController.swift in Sources */,
+				6F0E9E89246490220018B2A3 /* PigeonInfo.swift in Sources */,
 				6F5C11E4244A31470045F2AC /* ImageButton.swift in Sources */,
 				6F384809245C5E7200C36285 /* TextField.swift in Sources */,
 				6F9E2E5124535E0500E48C84 /* ReusableElement.swift in Sources */,
