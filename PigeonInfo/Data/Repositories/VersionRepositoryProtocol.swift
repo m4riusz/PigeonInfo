@@ -11,6 +11,6 @@ import RxSwift
 
 protocol VersionRepositoryProtocol {
     func save(_ version: Version) -> Observable<Void>
-    func refresh() -> Observable<Void>
+    func checkLatest() -> Observable<Version>
     func getLatest() -> Observable<Version?>
 }

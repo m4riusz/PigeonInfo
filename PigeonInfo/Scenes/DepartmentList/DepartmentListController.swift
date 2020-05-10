@@ -11,15 +11,10 @@ import RxSwift
 import RxDataSources
 
 final class DepartmentListController: UIViewController {
-    private lazy var button = Button().then {
-        $0.setImage(R.image.info(), for: .normal)
-    }
-    
     private lazy var searchNavigationView = SearchNavigationView().then {
         $0.title = R.string.localizable.departments()
         $0.roundedBottomCorners()
         $0.addShadow()
-        $0.righItems = [button]
     }
     private lazy var flowLayout = UICollectionViewFlowLayout().then {
         $0.itemSize = CGSize(width: view.frame.width,
@@ -29,12 +24,13 @@ final class DepartmentListController: UIViewController {
     }
     private lazy var collectionView = UICollectionView(flowLayout).then {
         $0.backgroundColor = .clear
+        $0.refreshControl = UIRefreshControl()
         $0.registerHeader(DepartmentCollectionViewHeader.self)
         $0.registerCell(DepartmentCollectionViewCell.self)
     }
     private lazy var disposeBag = DisposeBag()
     var viewModel: DepartmentListViewModel!
- 
+    
     override func viewDidLoad() {
         view.backgroundColor = R.color.background()
         setupConstraints()
@@ -58,15 +54,14 @@ final class DepartmentListController: UIViewController {
     }
     
     private func bindViewModel() {
-        let loadTrigger = rx.methodInvoked(#selector(viewDidLoad))
+        let refreshTrigger = collectionView.refreshControl!.rx
+            .controlEvent(.valueChanged)
             .mapToVoid()
             .asDriverOnErrorJustComplete()
         let query = searchNavigationView.query
-        let tmpAction = button.rx.tap.asDriver()
-        let output = viewModel.transform(input: .init(loadTrigger: loadTrigger,
-                                                      query: query,
-                                                      tmpAction: tmpAction))
         
+        let output = viewModel.transform(input: .init(refreshTrigger: refreshTrigger,
+                                                      query: query))
         output.items
             .drive(collectionView.rx.items(dataSource:
                 RxCollectionViewSectionedAnimatedDataSource<DepartmentSection>(
@@ -84,8 +79,21 @@ final class DepartmentListController: UIViewController {
                 })))
             .disposed(by: disposeBag)
         
-        output.tmp
-        .drive()
-        .disposed(by: disposeBag)
+        output.refreshing
+            .drive(onNext: { [weak self] refreshing in
+                let refreshControl = self?.collectionView.refreshControl
+                refreshing ? refreshControl?.beginRefreshing() : refreshControl?.endRefreshing()
+            })
+            .disposed(by: disposeBag)
+        
+        output.error
+            .drive(onNext: { error in
+                print(error)
+            })
+            .disposed(by: disposeBag)
+        
+        output.other
+            .drive()
+            .disposed(by: disposeBag)
     }
 }

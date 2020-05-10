@@ -14,14 +14,15 @@ import RxDataSources
 final class DepartmentListViewModel: ViewModelType {
     
     struct Input {
-        let loadTrigger: Driver<Void>
+        let refreshTrigger: Driver<Void>
         let query: Driver<String?>
-        let tmpAction: Driver<Void>
     }
     
     struct Output {
+        let refreshing: Driver<Bool>
         let items: Driver<[DepartmentSection]>
-        let tmp: Driver<Void>
+        let error: Driver<Error>
+        let other: Driver<Void>
     }
     
     private let useCase: DepartmentListUseCaseProtocol
@@ -32,34 +33,32 @@ final class DepartmentListViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let departments = useCase.departments()
-        let text = input.query.asObservable()
-        let filteredItems = Observable.combineLatest(text, departments)
-            .flatMapLatest { result -> Observable<[District: [Department]]> in
-                let pairs = result.1
-                guard let query = result.0, !query.isEmpty else {
-                    return .just(pairs)
-                }
-                return .just(pairs
-                    .compactMapValues { $0.searchText(query) }
-                    .filter { !$0.value.isEmpty }
-                )
-        }
-            .map { pairs -> [DepartmentSection] in
-                return pairs.map { section in
-                    .init(district: section.key,
-                          departments: section.value.map { .init(department: $0) })
-                }
-        }
-        .asDriverOnErrorJustComplete()
-        let tmp = input.tmpAction
-            .asObservable()
-            .flatMapLatest { _ -> Observable<Void> in
-                return self.useCase.mock()
-        }
-        .asDriverOnErrorJustComplete()
+        let activityIndicator = ActivityIndicator()
+        let errorTracker = ErrorTracker()
         
-        return .init(items: filteredItems,
-                     tmp: tmp)
+        let refreshing = input.refreshTrigger
+            .flatMapLatest { [unowned self] _ in
+                return self.useCase.refresh()
+                .trackActivity(activityIndicator)
+                .trackError(errorTracker)
+                .asDriverOnErrorJustComplete()
+        }
+      
+        let items = input.query
+            .flatMapLatest { [unowned self] query -> Driver<[DepartmentSection]> in
+                return self.useCase.departments(query: query)
+                    .map { pairs -> [DepartmentSection] in
+                        return pairs.map { section in
+                            .init(district: section.key,
+                                  departments: section.value.map { .init(department: $0) })
+                        }
+                }
+                .asDriverOnErrorJustComplete()
+        }
+        
+        return .init(refreshing: activityIndicator.asDriver(),
+                     items: items.asDriver(),
+                     error: errorTracker.asDriver(),
+                     other: refreshing.asDriver())
     }
 }

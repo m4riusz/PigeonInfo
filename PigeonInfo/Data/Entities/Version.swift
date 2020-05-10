@@ -18,3 +18,6 @@ extension Version: Hashable {
 
 extension Version: Equatable {
 }
+
+extension Version: Codable {
+}

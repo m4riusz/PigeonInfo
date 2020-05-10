@@ -1,5 +1,5 @@
 //
-//  District.swift
+//  Department.swift
 //  PigeonInfo
 //
 //  Created by Mariusz Sut on 15/04/2020.
@@ -8,14 +8,19 @@
 
 import Foundation
 
-struct District {
+struct Department {
+    let districtId: Int64
     let id: Int64
     let name: String
+    let number: String
     let versionId: Int64
 }
 
-extension District: Hashable {
+extension Department: Hashable {
 }
 
-extension District: Equatable {
+extension Department: Equatable {
+}
+
+extension Department: Codable {
 }

@@ -24,7 +24,8 @@ final class VersionRepository: VersionRepositoryProtocol {
     }
     
     func refresh() -> Observable<Void> {
-        fatalError()
+        return remote.getLatest()
+            .mapToVoid()
     }
     
     func getLatest() -> Observable<Version?> {

@@ -20,6 +20,9 @@ public class CDDepartment: NSManagedObject {
     static func getByVersionId(_ versionId: Int64) -> NSPredicate {
         return .init(format: "versionId == %d", versionId)
     }
+    static func getByText(_ text: String) -> NSPredicate {
+        return .init(format: "number CONTAINS[cd] %@ OR name CONTAINS[cd] %@", text, text)
+    }
 }
 
 extension CDDepartment: DomainConvertibleType {

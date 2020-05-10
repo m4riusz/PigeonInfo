@@ -72,6 +72,8 @@
 		6F5C11ED244A3B960045F2AC /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C11EC244A3B960045F2AC /* MainCoordinator.swift */; };
 		6F683CD42455F71F004E8DD1 /* ObservableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F683CD32455F71F004E8DD1 /* ObservableExtension.swift */; };
 		6F89318424648A9400670DBF /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F89318324648A9400670DBF /* ArrayExtension.swift */; };
+		6F9A89EB2468583C00355432 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9A89EA2468583C00355432 /* ActivityIndicator.swift */; };
+		6F9A89ED2468589400355432 /* ErrorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9A89EC2468589400355432 /* ErrorTracker.swift */; };
 		6F9E2E4D24535C4000E48C84 /* DepartmentCollectionViewCellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9E2E4C24535C4000E48C84 /* DepartmentCollectionViewCellStyle.swift */; };
 		6F9E2E5124535E0500E48C84 /* ReusableElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9E2E5024535E0500E48C84 /* ReusableElement.swift */; };
 		6FA12B67245C7A3B0013B078 /* CDVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA12B66245C7A3B0013B078 /* CDVersion.swift */; };
@@ -175,6 +177,8 @@
 		6F5C11EC244A3B960045F2AC /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		6F683CD32455F71F004E8DD1 /* ObservableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableExtension.swift; sourceTree = "<group>"; };
 		6F89318324648A9400670DBF /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		6F9A89EA2468583C00355432 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		6F9A89EC2468589400355432 /* ErrorTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTracker.swift; sourceTree = "<group>"; };
 		6F9E2E4C24535C4000E48C84 /* DepartmentCollectionViewCellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartmentCollectionViewCellStyle.swift; sourceTree = "<group>"; };
 		6F9E2E5024535E0500E48C84 /* ReusableElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableElement.swift; sourceTree = "<group>"; };
 		6FA12B66245C7A3B0013B078 /* CDVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDVersion.swift; sourceTree = "<group>"; };
@@ -341,10 +345,7 @@
 				6F5C11E5244A321B0045F2AC /* BaseView */,
 				6F5C11E2244A311F0045F2AC /* Components */,
 				6F5C11DB244A2E5C0045F2AC /* Coordinators */,
-				6F5AA4DB2448E10E00A93215 /* Repositories */,
-				6F5C11BE244A272C0045F2AC /* DataSources */,
 				6F5AA4DC2448E14200A93215 /* Utils */,
-				6F57168E24479B830076C88C /* Entries */,
 				6F5C11E8244A33E60045F2AC /* Spacings.swift */,
 				6F302A3F244B02220046F399 /* NavigationController.swift */,
 				6F0E9E8B246491D50018B2A3 /* AppDefaults.swift */,
@@ -405,6 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				6FA12B77245C9FDE0013B078 /* Extensions */,
+				6F5AA4DB2448E10E00A93215 /* Repositories */,
 				6F5C11D8244A2D730045F2AC /* DataSources */,
 				6F571688244793CA0076C88C /* Entities */,
 				6F57167624478C1E0076C88C /* Schemes */,
@@ -419,21 +421,12 @@
 		6F571688244793CA0076C88C /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				6F57167B24478EBA0076C88C /* CDDepartment.swift */,
-				6F57167D24478EBA0076C88C /* CDDistrict.swift */,
-				6FA12B66245C7A3B0013B078 /* CDVersion.swift */,
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
-		6F57168E24479B830076C88C /* Entries */ = {
-			isa = PBXGroup;
-			children = (
+				6F9A89E7246853B100355432 /* Database */,
 				6F5716842447926E0076C88C /* District.swift */,
 				6F57168C24479AA50076C88C /* Department.swift */,
 				6FA12B68245C7A870013B078 /* Version.swift */,
 			);
-			path = Entries;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		6F57168F24479B8D0076C88C /* UseCases */ = {
@@ -463,18 +456,10 @@
 			children = (
 				6F5AA4DD2448E15000A93215 /* ViewModelType.swift */,
 				6F9E2E5024535E0500E48C84 /* ReusableElement.swift */,
+				6F9A89EA2468583C00355432 /* ActivityIndicator.swift */,
+				6F9A89EC2468589400355432 /* ErrorTracker.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		6F5C11BE244A272C0045F2AC /* DataSources */ = {
-			isa = PBXGroup;
-			children = (
-				6F5C11BF244A28230045F2AC /* DepartmentDataSourceProtocol.swift */,
-				6F5C11C6244A29940045F2AC /* DistrictDataSourceProtocol.swift */,
-				6FA12B6A245C80B30013B078 /* VersionDataSourceProtocol.swift */,
-			);
-			path = DataSources;
 			sourceTree = "<group>";
 		};
 		6F5C11D8244A2D730045F2AC /* DataSources */ = {
@@ -482,6 +467,9 @@
 			children = (
 				6F8931812464810500670DBF /* Local */,
 				6F8931822464811500670DBF /* Remote */,
+				6F5C11BF244A28230045F2AC /* DepartmentDataSourceProtocol.swift */,
+				6F5C11C6244A29940045F2AC /* DistrictDataSourceProtocol.swift */,
+				6FA12B6A245C80B30013B078 /* VersionDataSourceProtocol.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -532,6 +520,16 @@
 				6FA12B72245C82600013B078 /* VersionRemoteDataSource.swift */,
 			);
 			path = Remote;
+			sourceTree = "<group>";
+		};
+		6F9A89E7246853B100355432 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				6F57167B24478EBA0076C88C /* CDDepartment.swift */,
+				6F57167D24478EBA0076C88C /* CDDistrict.swift */,
+				6FA12B66245C7A3B0013B078 /* CDVersion.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 		6F9E2E4B24535C2700E48C84 /* Cells */ = {
@@ -787,6 +785,7 @@
 				6F5AA4E32448E35700A93215 /* DepartmentRepositoryProtocol.swift in Sources */,
 				6FFBE2472450CAA800CD69E2 /* UIView.swift in Sources */,
 				6F5AA4D12448D81700A93215 /* DomainConvertibleType.swift in Sources */,
+				6F9A89ED2468589400355432 /* ErrorTracker.swift in Sources */,
 				6F5C11CD244A2A700045F2AC /* DepartmentRepository.swift in Sources */,
 				6FD9E03A245368D900EA2C32 /* DepartmentSection.swift in Sources */,
 				6F302A40244B02220046F399 /* NavigationController.swift in Sources */,
@@ -807,6 +806,7 @@
 				6F5C11C7244A29940045F2AC /* DistrictDataSourceProtocol.swift in Sources */,
 				6F5AA4E92448E75100A93215 /* DistrictRepositoryProtocol.swift in Sources */,
 				6F5C11CF244A2B470045F2AC /* DistrictReporitory.swift in Sources */,
+				6F9A89EB2468583C00355432 /* ActivityIndicator.swift in Sources */,
 				6F5AA4DE2448E15000A93215 /* ViewModelType.swift in Sources */,
 				6F21AC8F244629A300E419D7 /* AppDelegate.swift in Sources */,
 				6FFBE24D2450CF1200CD69E2 /* Label.swift in Sources */,

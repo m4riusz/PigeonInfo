@@ -22,20 +22,22 @@ final class DepartmentListUseCase: DepartmentListUseCaseProtocol {
         self.versionRepository = versionRepository
     }
     
-    func mock() -> Observable<Void> {
-        return versionRepository.save(.init(date: Date(), id: 1))
-            .do(onNext: { _ in
-                CoreDataStack().saveContext()
-            })
+    func refresh() -> Observable<Void> {
+        return versionRepository.refresh()
     }
     
-    func departments() -> Observable<[District: [Department]]> {
+    func departments(query: String?) -> Observable<[District: [Department]]> {
         return versionRepository.getLatest()
             .flatMapLatest { [unowned self] version in
                 return Observable.combineLatest(
                     self.districtRepository.query(predicate: CDDistrict.getByVersionId(version?.id ?? -1),
                                                   sorters: nil),
-                    self.departmentRepository.query(predicate: CDDepartment.getByVersionId(version?.id ?? -1),
+                    
+                    self.departmentRepository.query(predicate:
+                        NSCompoundPredicate(andPredicateWithSubpredicates: [
+                            CDDepartment.getByVersionId(version?.id ?? -1),
+                            CDDepartment.getByText(query ?? "")
+                        ]),
                                                     sorters: nil))
         }.flatMapLatest { result -> Observable<[District: [Department]]> in
             let districts = result.0
