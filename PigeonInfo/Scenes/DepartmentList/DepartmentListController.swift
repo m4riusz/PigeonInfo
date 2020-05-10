@@ -24,12 +24,13 @@ final class DepartmentListController: UIViewController {
     }
     private lazy var collectionView = UICollectionView(flowLayout).then {
         $0.backgroundColor = .clear
+        $0.refreshControl = UIRefreshControl()
         $0.registerHeader(DepartmentCollectionViewHeader.self)
         $0.registerCell(DepartmentCollectionViewCell.self)
     }
     private lazy var disposeBag = DisposeBag()
     var viewModel: DepartmentListViewModel!
- 
+    
     override func viewDidLoad() {
         view.backgroundColor = R.color.background()
         setupConstraints()
@@ -53,12 +54,13 @@ final class DepartmentListController: UIViewController {
     }
     
     private func bindViewModel() {
-        let loadTrigger = rx.methodInvoked(#selector(viewDidLoad))
+        let refreshTrigger = collectionView.refreshControl!.rx
+            .controlEvent(.valueChanged)
             .mapToVoid()
             .asDriverOnErrorJustComplete()
         let query = searchNavigationView.query
         
-        let output = viewModel.transform(input: .init(loadTrigger: loadTrigger,
+        let output = viewModel.transform(input: .init(refreshTrigger: refreshTrigger,
                                                       query: query))
         output.items
             .drive(collectionView.rx.items(dataSource:
@@ -75,6 +77,23 @@ final class DepartmentListController: UIViewController {
                     header.update(item)
                     return header
                 })))
+            .disposed(by: disposeBag)
+        
+        output.refreshing
+            .drive(onNext: { [weak self] refreshing in
+                let refreshControl = self?.collectionView.refreshControl
+                refreshing ? refreshControl?.beginRefreshing() : refreshControl?.endRefreshing()
+            })
+            .disposed(by: disposeBag)
+        
+        output.error
+            .drive(onNext: { error in
+                print(error)
+            })
+            .disposed(by: disposeBag)
+        
+        output.other
+            .drive()
             .disposed(by: disposeBag)
     }
 }

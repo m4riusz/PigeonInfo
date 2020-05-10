@@ -14,12 +14,15 @@ import RxDataSources
 final class DepartmentListViewModel: ViewModelType {
     
     struct Input {
-        let loadTrigger: Driver<Void>
-        let query: Driver<String>
+        let refreshTrigger: Driver<Void>
+        let query: Driver<String?>
     }
     
     struct Output {
+        let refreshing: Driver<Bool>
         let items: Driver<[DepartmentSection]>
+        let error: Driver<Error>
+        let other: Driver<Void>
     }
     
     private let useCase: DepartmentListUseCaseProtocol
@@ -30,14 +33,32 @@ final class DepartmentListViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let items = useCase.departments(query: nil)
-            .map { pairs -> [DepartmentSection] in
-                return pairs.map { section in
-                    .init(district: section.key,
-                          departments: section.value.map { .init(department: $0) })
-                }
+        let activityIndicator = ActivityIndicator()
+        let errorTracker = ErrorTracker()
+        
+        let refreshing = input.refreshTrigger
+            .flatMapLatest { [unowned self] _ in
+                return self.useCase.refresh()
+                .trackActivity(activityIndicator)
+                .trackError(errorTracker)
+                .asDriverOnErrorJustComplete()
         }
-        .asDriverOnErrorJustComplete()
-        return .init(items: items)
+      
+        let items = input.query
+            .flatMapLatest { [unowned self] query -> Driver<[DepartmentSection]> in
+                return self.useCase.departments(query: query)
+                    .map { pairs -> [DepartmentSection] in
+                        return pairs.map { section in
+                            .init(district: section.key,
+                                  departments: section.value.map { .init(department: $0) })
+                        }
+                }
+                .asDriverOnErrorJustComplete()
+        }
+        
+        return .init(refreshing: activityIndicator.asDriver(),
+                     items: items.asDriver(),
+                     error: errorTracker.asDriver(),
+                     other: refreshing.asDriver())
     }
 }

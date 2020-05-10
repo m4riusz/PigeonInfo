@@ -12,21 +12,40 @@ import RxSwift
 final class DepartmentListUseCase: DepartmentListUseCaseProtocol {
     private let districtRepository: DistrictRepositoryProtocol
     private let departmentRepository: DepartmentRepositoryProtocol
+    private let versionRepository: VersionRepositoryProtocol
     
     init(districtRepository: DistrictRepositoryProtocol,
-         departmentRepository: DepartmentRepositoryProtocol) {
+         departmentRepository: DepartmentRepositoryProtocol,
+         versionRepository: VersionRepositoryProtocol) {
         self.districtRepository = districtRepository
         self.departmentRepository = departmentRepository
+        self.versionRepository = versionRepository
+    }
+    
+    func refresh() -> Observable<Void> {
+        return versionRepository.refresh()
     }
     
     func departments(query: String?) -> Observable<[District: [Department]]> {
-        return Observable.combineLatest(districtRepository.query(predicate: nil, sorters: []),
-                                        departmentRepository.query(predicate: nil, sorters: []))
-            .flatMapLatest { districts, departments -> Observable<[District: [Department]]>  in
-                return .just(districts
-                    .reduce(into: [District: [Department]]()) { result, disctrict in
-                        result[disctrict] = departments.filter { $0.districtId == disctrict.id }
-                })
+        return versionRepository.getLatest()
+            .flatMapLatest { [unowned self] version in
+                return Observable.combineLatest(
+                    self.districtRepository.query(predicate: CDDistrict.getByVersionId(version?.id ?? -1),
+                                                  sorters: nil),
+                    
+                    self.departmentRepository.query(predicate:
+                        NSCompoundPredicate(andPredicateWithSubpredicates: [
+                            CDDepartment.getByVersionId(version?.id ?? -1),
+                            CDDepartment.getByText(query ?? "")
+                        ]),
+                                                    sorters: nil))
+        }.flatMapLatest { result -> Observable<[District: [Department]]> in
+            let districts = result.0
+            let departments = result.1
+            return .just(districts
+                .reduce(into: [District: [Department]]()) { result, disctrict in
+                    result[disctrict] = departments.filter { $0.districtId == disctrict.id }
+            })
         }
     }
 }
