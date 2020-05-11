@@ -50,7 +50,9 @@ final class DepartmentListViewModel: ViewModelType {
                     .map { pairs -> [DepartmentSection] in
                         return pairs.map { section in
                             .init(district: section.key,
-                                  departments: section.value.map { .init(department: $0) })
+                                  departments: section.value
+                                    .map { .init(department: $0,
+                                                 districtName: section.key.name) })
                         }
                 }
                 .asDriverOnErrorJustComplete()

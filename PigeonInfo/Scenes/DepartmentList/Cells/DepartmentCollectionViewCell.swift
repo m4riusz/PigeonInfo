@@ -9,6 +9,13 @@
 import UIKit
 
 final class DepartmentCollectionViewCell: UICollectionViewCell {
+    private lazy var containerView = UIView().then {
+        $0.backgroundColor = .white
+        $0.roundAllCorners(radius: DepartmentCollectionViewCellStyle.ContainerView.cornerRadius)
+    }
+    private lazy var markView = UIView().then {
+        $0.backgroundColor = .green
+    }
     private lazy var numberLabel = Label().then {
         $0.textSize = .big
         $0.textWeight = .semibold
@@ -22,23 +29,35 @@ final class DepartmentCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .white
         setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
-        contentView.backgroundColor = .white
         setupConstraints()
     }
     
     private func setupConstraints() {
-        contentView.addSubview(numberLabel)
-        contentView.addSubview(nameLabel)
+        contentView.addSubview(containerView)
+        containerView.addSubview(markView)
+        containerView.addSubview(numberLabel)
+        containerView.addSubview(nameLabel)
         
+        containerView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.equalToSuperview().offset(Spacings.normal)
+            $0.right.equalToSuperview().offset(-Spacings.normal)
+            $0.bottom.equalToSuperview()
+        }
+        markView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.equalToSuperview()
+            $0.bottom.equalToSuperview()
+            $0.width.equalTo(DepartmentCollectionViewCellStyle.MarkView.width)
+        }
         numberLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(Spacings.small)
-            $0.left.equalToSuperview().offset(Spacings.small)
+            $0.left.equalTo(markView.snp.right).offset(Spacings.small)
             $0.bottom.equalToSuperview().offset(-Spacings.small)
             $0.width.equalTo(DepartmentCollectionViewCellStyle.NumberLabel.width)
         }
@@ -51,6 +70,7 @@ final class DepartmentCollectionViewCell: UICollectionViewCell {
     }
     
     func update(_ item: DepartmentViewModel) {
+        markView.backgroundColor = item.color
         numberLabel.text = item.number
         nameLabel.text = item.name
     }
