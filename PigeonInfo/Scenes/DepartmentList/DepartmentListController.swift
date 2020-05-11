@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxDataSources
+import Toast
 
 final class DepartmentListController: UIViewController {
     private lazy var searchNavigationView = SearchNavigationView().then {
@@ -59,10 +60,16 @@ final class DepartmentListController: UIViewController {
     }
     
     private func bindViewModel() {
-        let refreshTrigger = collectionView.refreshControl!.rx
+        let viewDidLoadTrigger = rx.methodInvoked(#selector(viewWillAppear(_:)))
+            .mapToVoid()
+        
+        let pullToRefresh = collectionView.refreshControl!.rx
             .controlEvent(.valueChanged)
             .mapToVoid()
+        
+        let refreshTrigger = Observable.merge(viewDidLoadTrigger, pullToRefresh)
             .asDriverOnErrorJustComplete()
+        
         let query = searchNavigationView.query
             .throttle(.milliseconds(200))
         

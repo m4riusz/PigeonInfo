@@ -40,7 +40,19 @@ final class MainController: UIViewController {
         bindViewModel()
     }
     
-    func setChild(controller: UIViewController) {
+    func setListController(controller: UIViewController) {
+        listButton.isSelected = true
+        aboutButton.isSelected = false
+        setChild(controller: controller)
+    }
+    
+    func setAboutController(controller: UIViewController) {
+        listButton.isSelected = false
+        aboutButton.isSelected = true
+        setChild(controller: controller)
+    }
+    
+    private func setChild(controller: UIViewController) {
         children.forEach { $0.removeFromParent() }
         controller.willMove(toParent: self)
         containerView.addSubview(controller.view)
@@ -89,16 +101,10 @@ final class MainController: UIViewController {
         let output = viewModel.transform(input: .init(departmentListTrigger: departmentListTrigger,
                                                       aboutTrigger: aboutTrigger))
         output.departmentList
-            .drive(onNext: { [weak self] _ in
-                self?.listButton.isSelected = true
-                self?.aboutButton.isSelected = false
-            })
+            .drive()
             .disposed(by: disposeBag)
         output.about
-            .drive(onNext: { [weak self] _ in
-                self?.listButton.isSelected = false
-                self?.aboutButton.isSelected = true
-            })
+            .drive()
             .disposed(by: disposeBag)
     }
 }
