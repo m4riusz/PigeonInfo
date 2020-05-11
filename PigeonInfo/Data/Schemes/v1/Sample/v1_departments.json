@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "name": "BIAŁA PODLASKA",
+        "number": "07",
+        "districtId": 1
+    },
+    {
+        "id": 2,
+        "name": "PARCZEW",
+        "number": "08",
+        "districtId": 1
+    },
+    {
+        "id": 3,
+        "name": "RADZYŃ PODLASKI",
+        "number": "09",
+        "districtId": 1
+    },
+    {
+        "id": 4,
+        "name": "SOKOŁOWSKO- WĘGROWSKI",
+        "number": "010",
+        "districtId": 1
+    },
+    {
+        "id": 5,
+        "name": "ŁOSICE",
+        "number": "0385",
+        "districtId": 1
+    },
+    {
+        "id": 6,
+        "name": "MIĘDZYRZEC PODLASKI",
+        "number": "0391",
+        "districtId": 1
+    },
+    {
+        "id": 7,
+        "name": "SIEDLCE",
+        "number": "0414",
+        "districtId": 1
+    },
+    {
+        "id": 8,
+        "name": "PODLASIE",
+        "number": "0441",
+        "districtId": 1
+    },
+    {
+        "id": 9,
+        "name": "Ł-S-K WSCHÓD",
+        "number": "0468",
+        "districtId": 1
+    }
+]

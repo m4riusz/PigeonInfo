@@ -8,3 +8,9 @@
 
 /* General */
 "pigeon" = "Pigeon";
+"list" = "List";
+"info" = "Info";
+"search" = "Search";
+"cancel" = "Cancel";
+"departments" = "Departments";
+"no_data" = "No data";
