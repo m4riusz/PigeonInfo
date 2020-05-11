@@ -10,6 +10,6 @@ import CoreGraphics
 
 struct DepartmentCollectionViewCellStyle {
     struct NumberLabel {
-        static let width: CGFloat = 40
+        static let width: CGFloat = 70
     }
 }

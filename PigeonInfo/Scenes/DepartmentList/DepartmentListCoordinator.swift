@@ -20,11 +20,8 @@ final class DepartmentListCoordinator: CoordinatorProtocol {
                                                     remote: DistrictRemoteDataSource(moyaProvider: moyaProvider))
         let departmentRepository = DepartmentRepository(local: DepartmentLocalDataSource(context: context),
                                                         remote: DepartmentRemoteDataSource(moyaProvider: moyaProvider))
-        let versionRepository = VersionRepository(local: VersionLocalDataSource(context: context),
-                                                  remote: VersionRemoteDataSource(moyaProvider: moyaProvider))
         let useCase = DepartmentListUseCase(districtRepository: districtRepository,
-                                            departmentRepository: departmentRepository,
-                                            versionRepository: versionRepository)
+                                            departmentRepository: departmentRepository)
         $0.viewModel = DepartmentListViewModel(useCase: useCase)
         $0.viewModel.coordinator = self
     }

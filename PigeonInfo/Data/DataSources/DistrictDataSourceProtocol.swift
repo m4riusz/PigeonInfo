@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol DistrictDataSourceProtocol {
-    func save(_ departments: [District]) -> Observable<Void>
-    func fetch(versionId: Int64) -> Observable<[District]>
-    func get(versionId: Int64) -> Observable<[District]>
+    func save(_ districts: [District]) -> Observable<Void>
+    func fetch() -> Observable<[District]>
+    func get() -> Observable<[District]>
 }

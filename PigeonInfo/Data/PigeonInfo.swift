@@ -10,10 +10,8 @@ import Foundation
 import Moya
 
 enum PigeonInfo {
-    case allVersions
-    case latestVersion
-    case districts(versionId: Int64)
-    case departments(versionId: Int64, districtId: Int64)
+    case districts
+    case departments(districtId: Int64)
 }
 
 extension PigeonInfo: TargetType {
@@ -23,14 +21,10 @@ extension PigeonInfo: TargetType {
     
     var path: String {
         switch self {
-        case .allVersions:
-            return "/versions"
-        case .latestVersion:
-            return "/versions/latest"
-        case .districts(let versionId):
-            return "/districts/\(versionId)"
-        case .departments(let versionId, let districtId):
-            return "/departments/\(versionId)/district/\(districtId)"
+        case .districts:
+            return "/v1/districts/"
+        case .departments(let districtId):
+            return "/v1/departments/\(districtId)"
         }
     }
     
@@ -40,12 +34,6 @@ extension PigeonInfo: TargetType {
     
     var sampleData: Data {
         switch self {
-        case .allVersions:
-            return try! Data(contentsOf: Bundle.main.url(forResource: "v1_versions",
-                                                         withExtension: "json")!)
-        case .latestVersion:
-            return try! Data(contentsOf: Bundle.main.url(forResource: "v1_versions_latest",
-                                                         withExtension: "json")!)
         case .districts:
             return try! Data(contentsOf: Bundle.main.url(forResource: "v1_districts",
                                                          withExtension: "json")!)

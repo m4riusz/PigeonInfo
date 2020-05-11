@@ -12,39 +12,50 @@ import RxSwift
 final class DepartmentListUseCase: DepartmentListUseCaseProtocol {
     private let districtRepository: DistrictRepositoryProtocol
     private let departmentRepository: DepartmentRepositoryProtocol
-    private let versionRepository: VersionRepositoryProtocol
     
     init(districtRepository: DistrictRepositoryProtocol,
-         departmentRepository: DepartmentRepositoryProtocol,
-         versionRepository: VersionRepositoryProtocol) {
+         departmentRepository: DepartmentRepositoryProtocol) {
         self.districtRepository = districtRepository
         self.departmentRepository = departmentRepository
-        self.versionRepository = versionRepository
     }
     
     func refresh() -> Observable<Void> {
-        fatalError()
+        return self.sync()
     }
     
     func departments(query: String?) -> Observable<[District: [Department]]> {
-        return versionRepository.getLatest()
-            .flatMapLatest { [unowned self] version in
-                return Observable.combineLatest(
-                    self.districtRepository.get(versionId: version?.id ?? -1),
-                    
-                    self.departmentRepository.query(predicate:
-                        NSCompoundPredicate(andPredicateWithSubpredicates: [
-                            CDDepartment.getByVersionId(version?.id ?? -1),
-                            CDDepartment.getByText(query ?? "")
-                        ]),
-                                                    sorters: nil))
-        }.flatMapLatest { result -> Observable<[District: [Department]]> in
-            let districts = result.0
-            let departments = result.1
-            return .just(districts
-                .reduce(into: [District: [Department]]()) { result, disctrict in
-                    result[disctrict] = departments.filter { $0.districtId == disctrict.id }
-            })
+        return Observable.combineLatest(
+            self.districtRepository.get(),
+            self.departmentRepository.get(query: query))
+            .flatMapLatest { result -> Observable<[District: [Department]]> in
+                let districts = result.0
+                let departments = result.1
+                return .just(districts
+                    .reduce(into: [District: [Department]]()) { result, disctrict in
+                        result[disctrict] = departments.filter { $0.districtId == disctrict.id } }
+                    .filter { !$0.value.isEmpty }
+                )
         }
     }
+    
+    private func sync() -> Observable<Void> {
+        let districts = districtRepository.fetch().share()
+        
+        let districtsSave =  districts.flatMapLatest { [unowned self] items in
+            return self.districtRepository.save(items)
+        }
+        
+        let departmentsSave = districts.map { [unowned self] items in
+            return items.map { self.departmentRepository.fetch(districtId: $0.id) }
+        }
+        .flatMap(Observable.combineLatest)
+        .flatMapLatest { items -> Observable<[Department]> in
+            return .just(items.reduce([Department](), { $0 + $1 }))
+        }
+        .flatMapLatest { self.departmentRepository.save($0) }
+
+        return Observable.merge(districtsSave, departmentsSave)
+    }
+    
+    
 }

@@ -22,11 +22,13 @@ final class DepartmentCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .white
         setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
+        contentView.backgroundColor = .white
         setupConstraints()
     }
     

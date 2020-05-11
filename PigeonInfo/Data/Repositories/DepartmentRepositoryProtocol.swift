@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 
 protocol DepartmentRepositoryProtocol {
-    func fetch(versionId: Int64, districtId: Int64) -> Observable<[Department]>
-    func get(versionId: Int64, query: String?) -> Observable<[Department]>
+    func save(_ departments: [Department]) -> Observable<Void>
+    func fetch(districtId: Int64) -> Observable<[Department]>
+    func get(query: String?) -> Observable<[Department]>
 }

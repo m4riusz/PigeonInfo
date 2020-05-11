@@ -18,20 +18,31 @@ final class DepartmentLocalDataSource: DepartmentDataSourceProtocol {
     }
     
     func save(_ departments: [Department]) -> Observable<Void> {
+        return .create { [unowned self] observer in
+            do {
+                let fetched = try self.context.fetch(CDDepartment.getByText(nil))
+                fetched.forEach { self.context.delete( $0) }
+                
+                departments.forEach {
+                    let object = CDDepartment(context: self.context)
+                    $0.update(entity: object)
+                }
+                try self.context.save()
+                observer.onNext(())
+                observer.onCompleted()
+            } catch {
+                observer.onError(error)
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func fetch(districtId: Int64) -> Observable<[Department]> {
         fatalError()
     }
     
-    func query(predicate: NSPredicate?,
-               sorters: [NSSortDescriptor]? = []) -> Observable<[Department]> {
-        let fetchRequest = NSFetchRequest<CDDepartment>(entityName: Department.entityName).then {
-            $0.predicate = predicate
-            $0.sortDescriptors = sorters
-        }
-        do {
-            return .just(try context.fetch(fetchRequest)
-                .compactMap { $0.asDomain() })
-        } catch {
-            return .error(error)
-        }
+    func get(query: String?) -> Observable<[Department]> {
+        return context.rx.entities(fetchRequest: CDDepartment.getByText(query))
+            .map { $0.map { $0.asDomain() }}
     }
 }

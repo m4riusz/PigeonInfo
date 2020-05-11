@@ -17,11 +17,13 @@ final class DepartmentCollectionViewHeader: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = R.color.background()
         setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
+        backgroundColor = R.color.background()
         setupConstraints()
     }
     

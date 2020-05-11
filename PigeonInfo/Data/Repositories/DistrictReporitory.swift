@@ -19,11 +19,15 @@ final class DistrictRepository: DistrictRepositoryProtocol {
         self.remote = remote
     }
     
-    func fetch(versionId: Int64) -> Observable<[District]> {
-        return remote.fetch(versionId: versionId)
+    func save(_ districts: [District]) -> Observable<Void> {
+        return local.save(districts)
     }
     
-    func get(versionId: Int64) -> Observable<[District]> {
-        return local.get(versionId: versionId)
+    func fetch() -> Observable<[District]> {
+        return remote.fetch()
+    }
+    
+    func get() -> Observable<[District]> {
+        return local.get()
     }
 }

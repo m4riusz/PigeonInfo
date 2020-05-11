@@ -13,12 +13,10 @@ import CoreData
 public class CDDistrict: NSManagedObject {
     @NSManaged public var id: Int64
     @NSManaged public var name: String
-    @NSManaged public var versionId: Int64
     
-    static func getByVersionId(_ versionId: Int64) -> NSFetchRequest<CDDistrict> {
+    static func getAll() -> NSFetchRequest<CDDistrict> {
         return NSFetchRequest<CDDistrict>(entityName: "CDDistrict").then {
-            $0.predicate = NSPredicate(format: "versionId == %d", versionId)
-            $0.fetchLimit = 1
+            $0.sortDescriptors = [.init(key: "name", ascending: true)]
         }
     }
 }
@@ -26,8 +24,7 @@ public class CDDistrict: NSManagedObject {
 extension CDDistrict: DomainConvertibleType {
     func asDomain() -> District {
         return .init(id: id,
-                     name: name,
-                     versionId: versionId)
+                     name: name)
     }
 }
 
@@ -40,6 +37,5 @@ extension District: CoreDataRepresentable {
     func update(entity: CDDistrict) {
         entity.id = id
         entity.name = name
-        entity.versionId = versionId
     }
 }

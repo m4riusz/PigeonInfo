@@ -18,12 +18,16 @@ final class DepartmentListController: UIViewController {
     }
     private lazy var flowLayout = UICollectionViewFlowLayout().then {
         $0.itemSize = CGSize(width: view.frame.width,
-                             height: 40)
+                             height: 50)
         $0.headerReferenceSize = CGSize(width: view.frame.width,
                                         height: 40)
+        $0.sectionHeadersPinToVisibleBounds = true
     }
     private lazy var collectionView = UICollectionView(flowLayout).then {
         $0.backgroundColor = .clear
+        $0.backgroundView = EmptyView().then {
+            $0.title = R.string.localizable.no_data()
+        }
         $0.refreshControl = UIRefreshControl()
         $0.registerHeader(DepartmentCollectionViewHeader.self)
         $0.registerCell(DepartmentCollectionViewCell.self)
@@ -40,6 +44,7 @@ final class DepartmentListController: UIViewController {
     private func setupConstraints() {
         view.addSubview(searchNavigationView)
         view.addSubview(collectionView)
+        view.bringSubviewToFront(searchNavigationView)
         searchNavigationView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.equalToSuperview()
@@ -59,10 +64,14 @@ final class DepartmentListController: UIViewController {
             .mapToVoid()
             .asDriverOnErrorJustComplete()
         let query = searchNavigationView.query
+            .throttle(.milliseconds(200))
         
         let output = viewModel.transform(input: .init(refreshTrigger: refreshTrigger,
                                                       query: query))
         output.items
+            .do(onNext: { [weak self] items in
+                self?.collectionView.backgroundView?.isHidden = !items.isEmpty
+            })
             .drive(collectionView.rx.items(dataSource:
                 RxCollectionViewSectionedAnimatedDataSource<DepartmentSection>(
                     configureCell: { dataSource, collectionView, indexPath, item in

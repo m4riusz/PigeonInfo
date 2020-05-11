@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import Moya
+import RxMoya
 
 final class DistrictRemoteDataSource: DistrictDataSourceProtocol {
     private let moyaProvider: MoyaProvider<PigeonInfo>
@@ -17,17 +18,17 @@ final class DistrictRemoteDataSource: DistrictDataSourceProtocol {
         self.moyaProvider = moyaProvider
     }
     
-    func save(_ departments: [District]) -> Observable<Void> {
+    func save(_ districts: [District]) -> Observable<Void> {
         fatalError()
     }
     
-    func fetch(versionId: Int64) -> Observable<[District]> {
-        return moyaProvider.rx.request(.districts(versionId: versionId))
+    func fetch() -> Observable<[District]> {
+        return moyaProvider.rx.request(.districts)
             .map([District].self)
             .asObservable()
     }
     
-    func get(versionId: Int64) -> Observable<[District]> {
+    func get() -> Observable<[District]> {
         fatalError()
     }
 }

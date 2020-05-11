@@ -21,7 +21,7 @@ final class SearchNavigationView: BaseView {
         $0.roundCorners = true
     }
     private lazy var cancelButton = Button().then {
-        $0.setTitleColor(R.color.navigation_title(), for: .normal)
+        $0.setTitleColor(R.color.primary_button(), for: .normal)
         $0.setTitle(R.string.localizable.cancel(), for: .normal)
     }
     private lazy var normalStateConstraints = getNormalStateConstraints()
@@ -96,8 +96,8 @@ final class SearchNavigationView: BaseView {
     }
     
     private func setNormalView(animate: Bool = true) {
-        textField.endEditing(true)
         textField.text = nil
+        textField.endEditing(true)
         guard animate else {
             searchStateConstraints.forEach { $0.deactivate() }
             normalStateConstraints.forEach { $0.activate() }
