@@ -23,15 +23,14 @@ final class DepartmentListUseCase: DepartmentListUseCaseProtocol {
     }
     
     func refresh() -> Observable<Void> {
-        return versionRepository.refresh()
+        fatalError()
     }
     
     func departments(query: String?) -> Observable<[District: [Department]]> {
         return versionRepository.getLatest()
             .flatMapLatest { [unowned self] version in
                 return Observable.combineLatest(
-                    self.districtRepository.query(predicate: CDDistrict.getByVersionId(version?.id ?? -1),
-                                                  sorters: nil),
+                    self.districtRepository.get(versionId: version?.id ?? -1),
                     
                     self.departmentRepository.query(predicate:
                         NSCompoundPredicate(andPredicateWithSubpredicates: [

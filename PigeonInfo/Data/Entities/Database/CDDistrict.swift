@@ -15,8 +15,11 @@ public class CDDistrict: NSManagedObject {
     @NSManaged public var name: String
     @NSManaged public var versionId: Int64
     
-    static func getByVersionId(_ versionId: Int64) -> NSPredicate {
-        return .init(format: "versionId == %d", versionId)
+    static func getByVersionId(_ versionId: Int64) -> NSFetchRequest<CDDistrict> {
+        return NSFetchRequest<CDDistrict>(entityName: "CDDistrict").then {
+            $0.predicate = NSPredicate(format: "versionId == %d", versionId)
+            $0.fetchLimit = 1
+        }
     }
 }
 

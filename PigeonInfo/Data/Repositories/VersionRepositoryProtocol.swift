@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 
 protocol VersionRepositoryProtocol {
-    func save(_ version: Version) -> Observable<Void>
-    func checkLatest() -> Observable<Version>
+    func fetchLatest() -> Observable<Version>
     func getLatest() -> Observable<Version?>
 }

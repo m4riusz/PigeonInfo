@@ -21,8 +21,13 @@ final class DistrictRemoteDataSource: DistrictDataSourceProtocol {
         fatalError()
     }
     
-    func query(predicate: NSPredicate?,
-               sorters: [NSSortDescriptor]?) -> Observable<[District]> {
+    func fetch(versionId: Int64) -> Observable<[District]> {
+        return moyaProvider.rx.request(.districts(versionId: versionId))
+            .map([District].self)
+            .asObservable()
+    }
+    
+    func get(versionId: Int64) -> Observable<[District]> {
         fatalError()
     }
 }

@@ -10,11 +10,6 @@ import Foundation
 import RxSwift
 import Moya
 import RxMoya
-import Then
-
-extension JSONDecoder: Then {
-
-}
 
 final class VersionRemoteDataSource: VersionDataSourceProtocol {
     private let moyaProvider: MoyaProvider<PigeonInfo>
@@ -29,13 +24,7 @@ final class VersionRemoteDataSource: VersionDataSourceProtocol {
     
     func getLatest() -> Observable<Version?> {
         return moyaProvider.rx.request(.latestVersion)
-        .mapString()
-            .map { text -> Version? in
-                let decoder = JSONDecoder().then {
-                    $0.dateDecodingStrategy = .iso8601
-                }
-                return try? decoder.decode(Version.self, from: text.data(using: .utf8)!)
-        }
+            .map(Version?.self)
             .asObservable()
     }
 }

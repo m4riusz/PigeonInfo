@@ -23,6 +23,7 @@ final class VersionLocalDataSource: VersionDataSourceProtocol {
             do {
                 try self?.context.updateOrCreate(type: CDVersion.self,
                                                  object: version)
+                try self?.context.save()
                 observer.onNext(())
                 observer.onCompleted()
             } catch {
@@ -33,11 +34,7 @@ final class VersionLocalDataSource: VersionDataSourceProtocol {
     }
     
     func getLatest() -> Observable<Version?> {
-        let fetchRequest = NSFetchRequest<CDVersion>(entityName: Version.entityName).then {
-            $0.fetchLimit = 1
-            $0.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
-        }
-        return context.rx.entities(fetchRequest: fetchRequest)
+        return context.rx.entities(fetchRequest: CDVersion.getLatest())
             .map { $0.first?.asDomain() }
     }
 }

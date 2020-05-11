@@ -19,9 +19,11 @@ final class DepartmentRepository: DepartmentRepositoryProtocol {
         self.remote = remote
     }
     
-    func query(predicate: NSPredicate?,
-               sorters: [NSSortDescriptor]?) -> Observable<[Department]> {
-        return local.query(predicate: predicate,
-                           sorters: sorters)
+    func fetch(versionId: Int64, districtId: Int64) -> Observable<[Department]> {
+        fatalError()
+    }
+    
+    func get(versionId: Int64, query: String?) -> Observable<[Department]> {
+        ret
     }
 }

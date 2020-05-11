@@ -19,13 +19,9 @@ final class VersionRepository: VersionRepositoryProtocol {
         self.remote = remote
     }
     
-    func save(_ version: Version) -> Observable<Void> {
-        return local.save(version)
-    }
-    
-    func refresh() -> Observable<Void> {
+    func fetchLatest() -> Observable<Version> {
         return remote.getLatest()
-            .mapToVoid()
+            .compactMap { $0 }
     }
     
     func getLatest() -> Observable<Version?> {

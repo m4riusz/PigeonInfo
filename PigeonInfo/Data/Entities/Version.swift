@@ -11,6 +11,7 @@ import Foundation
 struct Version {
     let date: Date
     let id: Int64
+    let temporary: Bool = true
 }
 
 extension Version: Hashable {
