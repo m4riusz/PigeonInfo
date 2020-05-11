@@ -40,8 +40,8 @@ extension UIView {
     
     func addShadow() {
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 10
+        layer.shadowOpacity = 0.2
+        layer.shadowRadius = 3
         layer.masksToBounds = false
     }
 }

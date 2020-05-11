@@ -19,9 +19,15 @@ final class DistrictRepository: DistrictRepositoryProtocol {
         self.remote = remote
     }
     
-    func query(predicate: NSPredicate?,
-               sorters: [NSSortDescriptor]?) -> Observable<[District]> {
-        return local.query(predicate: predicate,
-                           sorters: sorters)
+    func save(_ districts: [District]) -> Observable<Void> {
+        return local.save(districts)
+    }
+    
+    func fetch() -> Observable<[District]> {
+        return remote.fetch()
+    }
+    
+    func get() -> Observable<[District]> {
+        return local.get()
     }
 }

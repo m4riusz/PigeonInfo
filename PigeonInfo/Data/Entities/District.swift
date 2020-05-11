@@ -11,7 +11,6 @@ import Foundation
 struct District {
     let id: Int64
     let name: String
-    let versionId: Int64
 }
 
 extension District: Hashable {

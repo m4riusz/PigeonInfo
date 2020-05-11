@@ -15,13 +15,15 @@ public class CDDepartment: NSManagedObject {
     @NSManaged public var id: Int64
     @NSManaged public var number: String
     @NSManaged public var name: String
-    @NSManaged public var versionId: Int64
-    
-    static func getByVersionId(_ versionId: Int64) -> NSPredicate {
-        return .init(format: "versionId == %d", versionId)
-    }
-    static func getByText(_ text: String) -> NSPredicate {
-        return .init(format: "number CONTAINS[cd] %@ OR name CONTAINS[cd] %@", text, text)
+
+    static func getByText(_ text: String?) -> NSFetchRequest<CDDepartment> {
+        return NSFetchRequest<CDDepartment>(entityName: "CDDepartment").then {
+            $0.sortDescriptors = [.init(key: "name", ascending: true)]
+            guard let text = text, !text.isEmpty else {
+                return
+            }
+            $0.predicate = .init(format: "number CONTAINS[cd] %@ OR name CONTAINS[cd] %@", text, text)
+        }
     }
 }
 
@@ -30,8 +32,7 @@ extension CDDepartment: DomainConvertibleType {
         return .init(districtId: districtId,
                      id: id,
                      name: name,
-                     number: number,
-                     versionId: versionId)
+                     number: number)
     }
 }
 
@@ -45,6 +46,5 @@ extension Department: CoreDataRepresentable {
         entity.id = id
         entity.name = name
         entity.number = number
-        entity.versionId = versionId
     }
 }

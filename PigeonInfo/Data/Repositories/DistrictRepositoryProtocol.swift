@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 
 protocol DistrictRepositoryProtocol {
-    func query(predicate: NSPredicate?,
-               sorters: [NSSortDescriptor]?) -> Observable<[District]>
+    func save(_ districts: [District]) -> Observable<Void>
+    func fetch() -> Observable<[District]>
+    func get() -> Observable<[District]>
 }

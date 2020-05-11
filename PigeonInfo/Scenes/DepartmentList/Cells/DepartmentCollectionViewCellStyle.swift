@@ -9,7 +9,13 @@
 import CoreGraphics
 
 struct DepartmentCollectionViewCellStyle {
+    struct ContainerView {
+        static let cornerRadius: CGFloat = 10
+    }
     struct NumberLabel {
-        static let width: CGFloat = 40
+        static let width: CGFloat = 70
+    }
+    struct MarkView {
+        static let width: CGFloat = 4
     }
 }

@@ -36,17 +36,18 @@ final class MainCoordinator: CoordinatorProtocol {
     func start() {
         navigationController.viewControllers = [mainController]
         window.rootViewController = navigationController
+        goToDepartmentList()
     }
 }
 
 extension MainCoordinator: MainCoordinatorProtocol {
     func goToDepartmentList() {
         departmentListCoordinator.start()
-        mainController.setChild(controller: departmentListCoordinator.navigationController)
+        mainController.setListController(controller: departmentListCoordinator.navigationController)
     }
     
     func goToAbout() {
         aboutCoordinator.start()
-        mainController.setChild(controller: aboutCoordinator.navigationController)
+        mainController.setAboutController(controller: aboutCoordinator.navigationController)
     }
 }

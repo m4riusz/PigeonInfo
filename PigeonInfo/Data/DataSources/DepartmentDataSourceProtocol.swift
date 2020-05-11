@@ -11,6 +11,6 @@ import RxSwift
 
 protocol DepartmentDataSourceProtocol {
     func save(_ departments: [Department]) -> Observable<Void>
-    func query(predicate: NSPredicate?,
-               sorters: [NSSortDescriptor]?) -> Observable<[Department]>
+    func fetch(districtId: Int64) -> Observable<[Department]>
+    func get(query: String?) -> Observable<[Department]>
 }
